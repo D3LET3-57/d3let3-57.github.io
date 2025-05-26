@@ -1,6 +1,6 @@
 [hugoVersion]
   extended = true
-  min = "0.87.0"
+  min = "0.100.0"
 [[imports]]
 disable = false
-path = "github.com/nunocoracao/blowfish/v2"
+path = "github.com/nunocoracao/blowfish/v2" 
