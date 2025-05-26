@@ -10,14 +10,14 @@ title = "D3LET3-57"
   rtl = false
   dateFormat = "2 January 2006"
    #logo = "img/evil_zoro.jpeg"
-   secondaryLogo = "img/Levi.jpeg"
+   secondaryLogo = "img/Levi.png"
    description = "D3LET3 | Lalith"
    copyright = "D3LET3 was here!"
 
  [params.author]
  name = "D3LET3-57"
   
-  image = "img/Levi.jpeg"
+  image = "img/Levi.png"
    imageQuality = 96
    headline = "OnePiece is Real!"
    bio = "Don't doxx me, lol!"

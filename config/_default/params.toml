@@ -21,7 +21,7 @@ disableImageOptimization = false
 disableTextInHeader = false
 # backgroundImageWidth = 1200
 
-defaultBackgroundImage = "idk.webp" # used as default for background images 
+defaultBackgroundImage = "img/zoro.webp" # used as default for background images 
 # defaultFeaturedImage = "IMAGE.jpg" # used as default for featured images in all articles
 
 # highlightCurrentMenuArea = true
@@ -43,7 +43,7 @@ forgejoDefaultServer = "https://v8.next.forgejo.org"
 
 [homepage]
   layout = "background" # valid options: page, profile, hero, card, background, custom
-  homepageImage = "idk.png" # used in: hero, and card
+  homepageImage = "img/background.png" # used in: hero, and card
   showRecent = true
   showRecentItems = 3
   showMoreLink = true
