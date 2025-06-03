@@ -4,7 +4,7 @@ summary: "This post covers the solutions for all levels of the OverTheWire Bandi
 description: "This post covers the solutions for all levels of the OverTheWire Bandit game, from Level 0 to Level 15. This is a comprehensive guide to help you navigate through the challenges and learn essential Linux commands and concepts."
 categories: ['Linux', 'OverTheWire', 'Bandit']
 tags: ['Beginner']
-date: 2 June 2025
+date: 2025-06-03
 draft: false
 ---
 # My solutions for Bandit - OverTheWire.org

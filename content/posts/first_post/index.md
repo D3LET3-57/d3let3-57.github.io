@@ -5,7 +5,7 @@ summary: "Welcome to my very first post!"
 categories: ["Introduction"]
 tags: ["Personal", "Blogging", "First Post"]
 #externalUrl: ""
-date: 25 May 2025
+date: 2025-05-25
 draft: false
 ---
 
