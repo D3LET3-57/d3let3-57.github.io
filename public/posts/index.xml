@@ -2,21 +2,62 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>D3LET3-57</title>
-    <link>https://d3let3.github.io/posts/</link>
+    <link>//localhost:1313/posts/</link>
     <description>Recent content on D3LET3-57</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>D3LET3 was here!</copyright>
-    <lastBuildDate>Sun, 25 May 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://d3let3.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 18 Aug 2025 00:00:00 +0000</lastBuildDate><atom:link href="//localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>ScriptCTF - Vault3 Challenge Writeup</title>
+      <link>//localhost:1313/posts/vault3/</link>
+      <pubDate>Mon, 18 Aug 2025 00:00:00 +0000</pubDate>
+      
+      <guid>//localhost:1313/posts/vault3/</guid>
+      <description>A detailed writeup for the Vault3 challenge from ScriptCTF 2025, focusing on a Safe Unlink heap exploitation technique.</description>
+      
+    </item>
+    
+    <item>
+      <title>Smiley CTF - `babyrop` Challenge Writeup</title>
+      <link>//localhost:1313/posts/smiley_babyrop/</link>
+      <pubDate>Mon, 16 Jun 2025 00:00:00 +0000</pubDate>
+      
+      <guid>//localhost:1313/posts/smiley_babyrop/</guid>
+      <description>Smiley CTF - babyrop Writeup # 0x00 - Overview # Checksec on given binary:
+➜ babyrop checksec vuln [*] &amp;#39;/home/delete/CTFs/SmileyCTF/babyrop/vuln&amp;#39; Arch: amd64-64-little RELRO: Full RELRO Stack: No canary found NX: NX enabled PIE: No PIE (0x400000) This challenge is mixture of ROP, Stack Pivot and libc leak.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="//localhost:1313/posts/smiley_babyrop/featured.png" />
+    </item>
+    
+    <item>
+      <title>Git Immersion: A Deep Dive into Version Control</title>
+      <link>//localhost:1313/posts/git_immersion/</link>
+      <pubDate>Tue, 03 Jun 2025 00:00:00 +0000</pubDate>
+      
+      <guid>//localhost:1313/posts/git_immersion/</guid>
+      <description>Introducing Git: the version control system that makes coding feel like a walk in the park&amp;hellip; with occasional rain.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="//localhost:1313/posts/git_immersion/featured.png" />
+    </item>
+    
+    <item>
+      <title>OverTheWire: Bandit (Level 0 - 15)</title>
+      <link>//localhost:1313/posts/otw/</link>
+      <pubDate>Tue, 03 Jun 2025 00:00:00 +0000</pubDate>
+      
+      <guid>//localhost:1313/posts/otw/</guid>
+      <description>This post covers the solutions for all levels of the OverTheWire Bandit game, from Level 0 to Level 15.This is a comprehensive guide to help you navigate through the challenges and learn essential Linux commands and concepts.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="//localhost:1313/posts/otw/featured.webp" />
+    </item>
     
     <item>
       <title>My first post</title>
-      <link>https://d3let3.github.io/posts/first_post/</link>
+      <link>//localhost:1313/posts/first_post/</link>
       <pubDate>Sun, 25 May 2025 00:00:00 +0000</pubDate>
       
-      <guid>https://d3let3.github.io/posts/first_post/</guid>
+      <guid>//localhost:1313/posts/first_post/</guid>
       <description>Welcome to my very first post!</description>
-      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://d3let3.github.io/posts/first_post/featured.jpeg" />
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="//localhost:1313/posts/first_post/featured.jpeg" />
     </item>
     
   </channel>

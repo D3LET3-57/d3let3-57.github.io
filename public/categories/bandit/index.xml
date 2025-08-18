@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Bandit on D3LET3-57</title>
+    <link>//localhost:1313/categories/bandit/</link>
+    <description>Recent content in Bandit on D3LET3-57</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>D3LET3 was here!</copyright>
+    <lastBuildDate>Tue, 03 Jun 2025 00:00:00 +0000</lastBuildDate><atom:link href="//localhost:1313/categories/bandit/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>OverTheWire: Bandit (Level 0 - 15)</title>
+      <link>//localhost:1313/posts/otw/</link>
+      <pubDate>Tue, 03 Jun 2025 00:00:00 +0000</pubDate>
+      
+      <guid>//localhost:1313/posts/otw/</guid>
+      <description>This post covers the solutions for all levels of the OverTheWire Bandit game, from Level 0 to Level 15.This is a comprehensive guide to help you navigate through the challenges and learn essential Linux commands and concepts.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="//localhost:1313/posts/otw/featured.webp" />
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Development on D3LET3-57</title>
+    <link>//localhost:1313/tags/development/</link>
+    <description>Recent content in Development on D3LET3-57</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>D3LET3 was here!</copyright>
+    <lastBuildDate>Tue, 03 Jun 2025 00:00:00 +0000</lastBuildDate><atom:link href="//localhost:1313/tags/development/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Git Immersion: A Deep Dive into Version Control</title>
+      <link>//localhost:1313/posts/git_immersion/</link>
+      <pubDate>Tue, 03 Jun 2025 00:00:00 +0000</pubDate>
+      
+      <guid>//localhost:1313/posts/git_immersion/</guid>
+      <description>Introducing Git: the version control system that makes coding feel like a walk in the park&amp;hellip; with occasional rain.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="//localhost:1313/posts/git_immersion/featured.png" />
+    </item>
+    
+  </channel>
+</rss>

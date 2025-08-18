@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Heap on D3LET3-57</title>
+    <link>//localhost:1313/tags/heap/</link>
+    <description>Recent content in Heap on D3LET3-57</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>D3LET3 was here!</copyright>
+    <lastBuildDate>Mon, 18 Aug 2025 00:00:00 +0000</lastBuildDate><atom:link href="//localhost:1313/tags/heap/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>ScriptCTF - Vault3 Challenge Writeup</title>
+      <link>//localhost:1313/posts/vault3/</link>
+      <pubDate>Mon, 18 Aug 2025 00:00:00 +0000</pubDate>
+      
+      <guid>//localhost:1313/posts/vault3/</guid>
+      <description>A detailed writeup for the Vault3 challenge from ScriptCTF 2025, focusing on a Safe Unlink heap exploitation technique.</description>
+      
+    </item>
+    
+  </channel>
+</rss>

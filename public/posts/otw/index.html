@@ -1,0 +1,1906 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="scroll-smooth" data-default-appearance="light"
+  data-auto-appearance="true"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  
+  <meta http-equiv="content-language" content="en" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <title>OverTheWire: Bandit (Level 0 - 15) &middot; D3LET3-57</title>
+  <meta name="title" content="OverTheWire: Bandit (Level 0 - 15) &middot; D3LET3-57" />
+  
+  <meta name="description" content="This post covers the solutions for all levels of the OverTheWire Bandit game, from Level 0 to Level 15.This is a comprehensive guide to help you navigate through the challenges and learn essential Linux commands and concepts." />
+  <meta name="keywords" content="Beginner, " />
+  
+  
+  <link rel="canonical" href="//localhost:1313/posts/otw/" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.36c3cd7950e4533fa7da3150d972e3edf34d07f83c0264ff04cad0969dfdb3b8a7065b0ed6c730c6d34a7bad516cfc6f6a5917ab1fdb10b25f481f8a17b54c16.css"
+    integrity="sha512-NsPNeVDkUz&#43;n2jFQ2XLj7fNNB/g8AmT/BMrQlp39s7inBlsO1scwxtNKe61RbPxvalkXqx/bELJfSB&#43;KF7VMFg==" />
+  
+  
+  <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
+    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.bba497f294a14b70af4ae6f9028397dc7bc3bd265b3598850c6d3501b52e88c3af73a3d8d96978a591241c99896667f2407860d99b4d7d4ba7fea55807f5ac70.js"
+    integrity="sha512-u6SX8pShS3CvSub5AoOX3HvDvSZbNZiFDG01AbUuiMOvc6PY2Wl4pZEkHJmJZmfyQHhg2ZtNfUun/qVYB/WscA==" data-copy="Copy" data-copied="Copied"></script>
+  
+  
+  
+  <script src="/lib/zoom/zoom.min.f592a181a15d2a5b042daa7f746c3721acf9063f8b6acd175d989129865a37d400ae0e85b640f9ad42cd98d1f8ad30931718cf8811abdcc5fcb264400d1a2b0c.js" integrity="sha512-9ZKhgaFdKlsELap/dGw3Iaz5Bj&#43;Las0XXZiRKYZaN9QArg6FtkD5rULNmNH4rTCTFxjPiBGr3MX8smRADRorDA=="></script>
+  
+  
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:title" content="OverTheWire: Bandit (Level 0 - 15)" />
+<meta property="og:description" content="This post covers the solutions for all levels of the OverTheWire Bandit game, from Level 0 to Level 15. This is a comprehensive guide to help you navigate through the challenges and learn essential Linux commands and concepts." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="//localhost:1313/posts/otw/" /><meta property="og:image" content="//localhost:1313/posts/otw/featured.webp" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2025-06-03T00:00:00+00:00" />
+<meta property="article:modified_time" content="2025-06-03T00:00:00+00:00" />
+
+
+  <meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="//localhost:1313/posts/otw/featured.webp" /><meta name="twitter:title" content="OverTheWire: Bandit (Level 0 - 15)"/>
+<meta name="twitter:description" content="This post covers the solutions for all levels of the OverTheWire Bandit game, from Level 0 to Level 15. This is a comprehensive guide to help you navigate through the challenges and learn essential Linux commands and concepts."/>
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "",
+    "name": "OverTheWire: Bandit (Level 0 - 15)",
+    "headline": "OverTheWire: Bandit (Level 0 - 15)",
+    "description": "This post covers the solutions for all levels of the OverTheWire Bandit game, from Level 0 to Level 15. This is a comprehensive guide to help you navigate through the challenges and learn essential Linux commands and concepts.",
+    "abstract": "This post covers the solutions for all levels of the OverTheWire Bandit game, from Level 0 to Level 15.This is a comprehensive guide to help you navigate through the challenges and learn essential Linux commands and concepts.",
+    "inLanguage": "en",
+    "url" : "\/\/localhost:1313\/posts\/otw\/",
+    "author" : {
+      "@type": "Person",
+      "name": "D3LET3-57"
+    },
+    "copyrightYear": "2025",
+    "dateCreated": "2025-06-03T00:00:00\u002b00:00",
+    "datePublished": "2025-06-03T00:00:00\u002b00:00",
+    
+    "dateModified": "2025-06-03T00:00:00\u002b00:00",
+    
+    "keywords": ["Beginner"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "1796"
+  }]
+  </script>
+
+
+  
+  
+  <meta name="author" content="D3LET3-57" />
+  
+  
+  
+  
+  <link href="https://github.com/D3LET3-57" rel="me" />
+  
+  
+  
+  
+  <link href="https://x.com/D3LET3_57" rel="me" />
+  
+  
+  
+  
+  
+
+<script src="/lib/jquery/jquery.slim.min.b0dca576e87d7eaa5850ae4e61759c065786cdb6489d68fcc82240539eebd5da522bdb4fda085ffd245808c8fe2acb2516408eb774ef26b5f6015fc6737c0ea8.js" integrity="sha512-sNylduh9fqpYUK5OYXWcBleGzbZInWj8yCJAU57r1dpSK9tP2ghf/SRYCMj&#43;KsslFkCOt3TvJrX2AV/Gc3wOqA=="></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  <meta name="theme-color"/>
+  
+  
+</head>
+<body
+  class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+  <div id="the-top" class="absolute flex self-center">
+    <a class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+      href="#main-content"><span
+        class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>Skip to main content</a>
+  </div>
+  
+  
+  <div class="min-h-[148px]"></div>
+<div class="fixed inset-x-0 min-h-[130px] opacity-65 pl-[24px] pr-[24px] bg-gradient-to-b from-neutral from-60% dark:from-neutral-800 to-transparent mix-blend-normal" style="z-index:80"></div>
+<div class="fixed inset-x-0 pl-[24px] pr-[24px]" style="z-index:100">
+  <div id="menu-blur" class="absolute opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl shadow-2xl"></div>
+  <div class="relative max-w-[64rem] ml-auto mr-auto">
+    <div style="padding-left:0;padding-right:0;padding-top:2px;padding-bottom:3px"
+    class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start gap-x-3">
+    
+    
+    
+    <div class="flex flex-1 items-center justify-between">
+        <nav class="flex space-x-3">
+
+            
+            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">D3LET3-57</a>
+            
+
+        </nav>
+        <nav class="hidden md:flex items-center gap-x-5 md:ml-12 h-12">
+
+            
+            
+            
+  <a href="/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-base font-medium" title="">
+        Home
+    </p>
+</a>
+
+
+
+            
+            
+  <a href="/posts/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-base font-medium" title="">
+        Blog
+    </p>
+</a>
+
+
+
+            
+            
+  <a href="https://github.com/D3LET3-57"  target="_blank"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <span >
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+
+  </span>
+
+
+    </span>
+    
+    <p class="text-base font-medium" title="">
+        
+    </p>
+</a>
+
+
+
+            
+            
+
+            
+
+
+            
+            <button id="search-button" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+
+            
+            
+            <div
+                class=" flex items-center">
+                <button id="appearance-switcher" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+                    <div class="flex items-center justify-center dark:hidden">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                    </div>
+                    <div class="items-center justify-center hidden dark:flex">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                    </div>
+                </button>
+            </div>
+            
+
+        </nav>
+        <div class="flex md:hidden items-center gap-x-5 md:ml-12 h-12">
+
+            <span></span>
+
+            
+
+
+            
+            <button id="search-button-mobile" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            <button id="appearance-switcher-mobile" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400 ltr:mr-1 rtl:ml-1">
+                <div class="flex items-center justify-center dark:hidden">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                </div>
+                <div class="items-center justify-center hidden dark:flex">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                </div>
+            </button>
+            
+
+        </div>
+    </div>
+    <div class="-my-2 md:hidden">
+
+        <label id="menu-button" class="block">
+            
+            <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+                
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+
+  </span>
+
+
+            </div>
+            <div id="menu-wrapper" style="padding-top:5px;"
+                class="fixed inset-0 z-30 invisible w-screen h-screen m-0 overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50">
+                <ul
+                    class="flex space-y-2 mt-3 flex-col items-end w-full px-6 py-6 mx-auto overflow-visible list-none ltr:text-right rtl:text-left max-w-7xl">
+
+                    <li id="menu-close-button">
+                        <span
+                            class="cursor-pointer inline-block align-text-bottom hover:text-primary-600 dark:hover:text-primary-400">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+</span>
+                    </li>
+
+                    
+
+                    
+  <li class="mt-1">
+    <a href="/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            Home
+        </p>
+    </a>
+</li>
+
+
+
+
+                    
+
+                    
+  <li class="mt-1">
+    <a href="/posts/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            Blog
+        </p>
+    </a>
+</li>
+
+
+
+
+                    
+
+                    
+  <li class="mt-1">
+    <a href="https://github.com/D3LET3-57"  target="_blank"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <div >
+            
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+
+  </span>
+
+
+        </div>
+        
+        <p class="text-bg font-bg" title="">
+            
+        </p>
+    </a>
+</li>
+
+
+
+
+                    
+
+                </ul>
+                
+                
+
+            </div>
+        </label>
+    </div>
+</div>
+
+
+
+
+
+  </div>
+</div>
+<script>
+  window.addEventListener('scroll', function (e) {
+    var scroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    var background_blur = document.getElementById('menu-blur');
+    background_blur.style.opacity = (scroll / 300);
+  });
+</script>
+
+  
+  <div class="relative flex flex-col grow">
+    <main id="main-content" class="grow">
+      
+
+
+<article>
+  
+  
+  
+  
+  
+  
+
+
+<div class="w-full rounded-md h-36 md:h-56 lg:h-72 single_hero_basic nozoom" style="background-image:url(/posts/otw/featured_hu355bcf2002303533bcf63edc2aeb092a_148986_1200x0_resize_q75_h2_box_2.webp);"></div>
+
+
+
+<div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom"
+    style="background-image:url(/img/zoro_hu95c079eb722b24b4cb0c5d247e6ede19_69772_1200x0_resize_q75_h2_box_2.webp);">
+    <div class="absolute inset-0 bg-gradient-to-t from-neutral dark:from-neutral-800 to-transparent mix-blend-normal">
+    </div>
+    <div
+        class="absolute inset-0 opacity-30 dark:opacity-60 bg-gradient-to-t from-neutral dark:from-neutral-800 to-neutral dark:to-neutral-800 mix-blend-normal">
+    </div>
+</div>
+
+<div id="background-blur" class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl"></div>
+<script>
+    window.addEventListener('scroll', function (e) {
+        var scroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+        var background_blur = document.getElementById('background-blur');
+        background_blur.style.opacity = (scroll / 300)
+    });
+</script>
+
+
+
+  
+  
+
+  <header id="single_header" class="mt-5 max-w-prose">
+    
+    <ol class="text-sm text-neutral-500 dark:text-neutral-400 print:hidden">
+  
+  
+    
+  
+    
+  
+  <li class="hidden">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/"
+      ></a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="inline">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/posts/"
+      >posts</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="hidden">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/posts/otw/"
+      >OverTheWire: Bandit (Level 0 - 15)</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+</ol>
+
+
+    
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      OverTheWire: Bandit (Level 0 - 15)
+    </h1>
+    <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+      
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2025-06-03T00:00:00&#43;00:00">2025-06-03</time><span class="px-2 text-primary-500">&middot;</span><span>1796 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">9 mins</span><span class="px-2 text-primary-500">&middot;</span>
+
+
+<script type="text/javascript" src="/js/zen-mode.min.eea5245cf9244ecbdf2c150d1c8833226c1541cadf6e98f63a7c9192b1a3676df2c3ec603b14f4cfaaa53971fd9d8955640c0f405bf3de2b43ee7a5fb29ae721.js" integrity="sha512-7qUkXPkkTsvfLBUNHIgzImwVQcrfbpj2OnyRkrGjZ23yw&#43;xgOxT0z6qlOXH9nYlVZAwPQFvz3itD7npfsprnIQ=="></script>
+
+<span class="mb-[2px]">
+    <span id="zen-mode-button"
+          class="text-lg hover:text-primary-500"
+          title="Enable zen mode"
+          data-title-i18n-disable="Enable zen mode"
+          data-title-i18n-enable="Disable zen mode">
+        <span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="50px" height="50px">
+    <path fill="currentColor" d="M 12.980469 4 C 9.1204688 4 5.9804688 7.14 5.9804688 11 L 6 26 L 9.9804688 26 L 9.9804688 11 C 9.9804688 9.35 11.320469 8 12.980469 8 L 40.019531 8 C 41.679531 8 43.019531 9.35 43.019531 11 L 43.019531 39 C 43.019531 40.65 41.679531 42 40.019531 42 L 29 42 C 29 43.54 28.420938 44.94 27.460938 46 L 40.019531 46 C 43.879531 46 47.019531 42.86 47.019531 39 L 47.019531 11 C 47.019531 7.14 43.879531 4 40.019531 4 L 12.980469 4 z M 7 28 C 4.794 28 3 29.794 3 32 L 3 42 C 3 44.206 4.794 46 7 46 L 23 46 C 25.206 46 27 44.206 27 42 L 27 32 C 27 29.794 25.206 28 23 28 L 7 28 z M 7 32 L 23 32 L 23.001953 42 L 7 42 L 7 32 z"/>
+</svg>
+  </span>
+
+</span>
+    </span>
+</span>
+  
+
+  
+  
+</div>
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/categories/linux/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Linux
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/categories/overthewire/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    OverTheWire
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/categories/bandit/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Bandit
+  </span>
+</span>
+  </span>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/beginner/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Beginner
+  </span>
+</span>
+  </span>
+  
+  
+  
+  
+</div>
+
+
+
+
+    </div>
+
+    
+    
+    
+    
+    
+
+    
+
+    
+      
+      
+        
+        
+<div class="flex author">
+  
+    
+    
+      
+    
+    
+      
+        
+      
+      <img class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4" width="96" height="96"
+      alt="D3LET3-57" src="/img/Levi_hu0ff16cd5785970a50d00528b9d8c94bb_455834_192x192_fill_box_center_3.png" />
+    
+  
+  <div class="place-self-center">
+    
+    <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+      Author
+    </div>
+    <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+      D3LET3-57
+    </div>
+    
+    
+    <div class="text-sm text-neutral-700 dark:text-neutral-400">Don&rsquo;t doxx me, lol!</div>
+    
+    <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://github.com/D3LET3-57"
+          target="_blank"
+          aria-label="Github"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+
+  </span>
+
+</span></a
+        >
+      
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://x.com/D3LET3_57"
+          target="_blank"
+          aria-label="Twitter"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+
+  </span>
+
+</span></a
+        >
+      
+    
+  </div>
+
+</div>
+  </div>
+</div>
+
+      
+
+      
+
+      
+      <div class="mb-5"></div>
+      
+
+    
+
+  </header>
+  
+  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+    
+     <div
+      class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
+      <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-[140px]">
+
+         <details open id="TOCView"
+  class="toc-right mt-0 overflow-y-scroll overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    Table of Contents
+  </summary>
+  <div
+    class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#bandit-level-0">Bandit Level 0</a></li>
+    <li><a href="#bandit-level-1">Bandit Level 1</a></li>
+    <li><a href="#bandit-level-2">Bandit Level 2</a></li>
+    <li><a href="#bandit-level-3">Bandit Level 3</a></li>
+    <li><a href="#bandit-level-4">Bandit Level 4</a></li>
+    <li><a href="#bandit-level-5">Bandit Level 5</a></li>
+    <li><a href="#bandit-level-6">Bandit Level 6</a></li>
+    <li><a href="#bandit-level-7">Bandit Level 7</a></li>
+    <li><a href="#bandit-level-8">Bandit Level 8</a></li>
+    <li><a href="#bandit-level-9">Bandit Level 9</a></li>
+    <li><a href="#bandit-level-10">Bandit Level 10</a></li>
+    <li><a href="#bandit-level-11">Bandit Level 11</a></li>
+    <li><a href="#bandit-level-12">Bandit Level 12</a></li>
+    <li><a href="#bandit-level-13">Bandit Level 13</a></li>
+    <li><a href="#bandit-level-14">Bandit Level 14</a></li>
+    <li><a href="#bandit-level-15">Bandit Level 15</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+<details class="toc-inside mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    Table of Contents
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#bandit-level-0">Bandit Level 0</a></li>
+    <li><a href="#bandit-level-1">Bandit Level 1</a></li>
+    <li><a href="#bandit-level-2">Bandit Level 2</a></li>
+    <li><a href="#bandit-level-3">Bandit Level 3</a></li>
+    <li><a href="#bandit-level-4">Bandit Level 4</a></li>
+    <li><a href="#bandit-level-5">Bandit Level 5</a></li>
+    <li><a href="#bandit-level-6">Bandit Level 6</a></li>
+    <li><a href="#bandit-level-7">Bandit Level 7</a></li>
+    <li><a href="#bandit-level-8">Bandit Level 8</a></li>
+    <li><a href="#bandit-level-9">Bandit Level 9</a></li>
+    <li><a href="#bandit-level-10">Bandit Level 10</a></li>
+    <li><a href="#bandit-level-11">Bandit Level 11</a></li>
+    <li><a href="#bandit-level-12">Bandit Level 12</a></li>
+    <li><a href="#bandit-level-13">Bandit Level 13</a></li>
+    <li><a href="#bandit-level-14">Bandit Level 14</a></li>
+    <li><a href="#bandit-level-15">Bandit Level 15</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+<script>
+
+  var margin = 200;
+  var marginError = 50;
+
+  (function () {
+    var $window = $(window);
+    var $toc = $('#TOCView');
+    var tocHeight = $toc.height();
+
+    function onResize() {
+      var windowAndMarginHeight = $window.height() - margin;
+      if(tocHeight >= windowAndMarginHeight) {
+        $toc.css("overflow-y", "scroll")
+        $toc.css("max-height", (windowAndMarginHeight + marginError) + "px")
+      } else {
+        $toc.css("overflow-y", "hidden")
+        $toc.css("max-height", "9999999px")
+      }
+    }
+
+    $window.on('resize', onResize);
+    $(document).ready(onResize);
+  })();
+
+
+
+</script>
+   </div>
+      </div>
+      
+
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+        
+
+
+        <div class="article-content max-w-prose mb-20">
+          
+
+<h1 class="relative group">My solutions for Bandit - OverTheWire.org 
+    <div id="my-solutions-for-bandit---overthewireorg" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#my-solutions-for-bandit---overthewireorg" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
+
+
+<h2 class="relative group">Bandit Level 0 
+    <div id="bandit-level-0" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#bandit-level-0" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ssh bandit0@bandit.labs.overthewire.org -p <span class="m">2220</span>
+</span></span></code></pre></div><p>Connect to the server using the provided command. The password is <code>bandit0</code>.
+Password for Bandit Level 1 is found in the file <code>readme</code> in the home directory of Bandit Level 0.
+Password: <code>ZjLjTmM6FvvyRnrb2rfNWOZOTa6ip5If</code></p>
+
+
+<h2 class="relative group">Bandit Level 1 
+    <div id="bandit-level-1" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#bandit-level-1" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bandit1@bandit:~$ cat /home/bandit1/-
+</span></span><span class="line"><span class="cl">263JGJPfgU6LtdEvgfWU1XP5yac29mFx
+</span></span></code></pre></div><p>Password for Bandit Level 2 is found in the file <code>-</code> in the home directory of Bandit Level 1.
+Password: <code>263JGJPfgU6LtdEvgfWU1XP5yac29mFx</code></p>
+
+
+<h2 class="relative group">Bandit Level 2 
+    <div id="bandit-level-2" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#bandit-level-2" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bandit2@bandit:~$ cat spaces<span class="se">\ </span>in<span class="se">\ </span>this<span class="se">\ </span>filename 
+</span></span><span class="line"><span class="cl">MNk8KNH3Usiio41PRUEoDFPqfxLPlSmx
+</span></span></code></pre></div><p>Password for Bandit Level 3 is found in the file <code>spaces in this filename</code> in the home directory of Bandit Level 2.</p>
+<p>Password: <code>MNk8KNH3Usiio41PRUEoDFPqfxLPlSmx</code></p>
+
+
+<h2 class="relative group">Bandit Level 3 
+    <div id="bandit-level-3" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#bandit-level-3" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bandit3@bandit:~/inhere$ ls -la
+</span></span><span class="line"><span class="cl">total <span class="m">12</span>
+</span></span><span class="line"><span class="cl">drwxr-xr-x <span class="m">2</span> root    root    <span class="m">4096</span> Apr <span class="m">10</span> 14:23 .
+</span></span><span class="line"><span class="cl">drwxr-xr-x <span class="m">3</span> root    root    <span class="m">4096</span> Apr <span class="m">10</span> 14:23 ..
+</span></span><span class="line"><span class="cl">-rw-r----- <span class="m">1</span> bandit4 bandit3   <span class="m">33</span> Apr <span class="m">10</span> 14:23 ...Hiding-From-You
+</span></span><span class="line"><span class="cl">bandit3@bandit:~/inhere$ cat ...Hiding-From-You 
+</span></span><span class="line"><span class="cl">2WmrDFRmJIq3IPxneAaMGhap0pFhF3NJ
+</span></span></code></pre></div><p>Password for Bandit Level 4 is found in the file <code>...Hiding-From-You</code> in the home directory of Bandit Level 3.
+Password: <code>2WmrDFRmJIq3IPxneAaMGhap0pFhF3NJ</code></p>
+
+
+<h2 class="relative group">Bandit Level 4 
+    <div id="bandit-level-4" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#bandit-level-4" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<p>We will use the file command to get the information about the files. From files command, we now know that the file07 contains ASCII text</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bandit4@bandit:~/inhere$ file ./*
+</span></span><span class="line"><span class="cl">./-file00: PGP Secret Sub-key -
+</span></span><span class="line"><span class="cl">./-file01: data
+</span></span><span class="line"><span class="cl">./-file02: data
+</span></span><span class="line"><span class="cl">./-file03: data
+</span></span><span class="line"><span class="cl">./-file04: data
+</span></span><span class="line"><span class="cl">./-file05: data
+</span></span><span class="line"><span class="cl">./-file06: data
+</span></span><span class="line"><span class="cl">./-file07: ASCII text
+</span></span><span class="line"><span class="cl">./-file08: data
+</span></span><span class="line"><span class="cl">./-file09: data
+</span></span><span class="line"><span class="cl">bandit4@bandit:~/inhere$ cat ./-file07 
+</span></span><span class="line"><span class="cl">4oQYVPkxZOOEOO5pTW81FB8j8lxXGUQw
+</span></span></code></pre></div><p>Password: <code>4oQYVPkxZOOEOO5pTW81FB8j8lxXGUQw</code></p>
+
+
+<h2 class="relative group">Bandit Level 5 
+    <div id="bandit-level-5" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#bandit-level-5" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bandit5@bandit:~/inhere$ find . -size 1033c
+</span></span><span class="line"><span class="cl">./maybehere07/.file2
+</span></span><span class="line"><span class="cl">bandit5@bandit:~/inhere$ cat ./maybehere07/.file2
+</span></span><span class="line"><span class="cl">HWasnPhtq9AVKe0dmk45nxy20cvUa6EG
+</span></span></code></pre></div><p>Used <code>-size</code> flag to find the file with size 1033 bytes. The file is located in <code>maybehere07</code> directory
+Password: <code>HWasnPhtq9AVKe0dmk45nxy20cvUa6EG</code></p>
+
+
+<h2 class="relative group">Bandit Level 6 
+    <div id="bandit-level-6" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#bandit-level-6" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bandit6@bandit:~$ find / -user bandit7 -group bandit6 -size 33c
+</span></span><span class="line"><span class="cl">/var/lib/dpkg/info/bandit7.password
+</span></span><span class="line"><span class="cl">bandit6@bandit:~$ cat /var/lib/dpkg/info/bandit7.password
+</span></span><span class="line"><span class="cl">morbNTDkSW6jIlUc0ymOdMaLnOlFVAaj    
+</span></span></code></pre></div><p>Used the <code>find</code> command to locate files owned by user <code>bandit7</code> and group <code>bandit6</code> with a size of 33 bytes, starting from the root directory. The password file was found at <code>/var/lib/dpkg/info/bandit7.password</code>.
+Password: <code>morbNTDkSW6jIlUc0ymOdMaLnOlFVAaj</code></p>
+
+
+<h2 class="relative group">Bandit Level 7 
+    <div id="bandit-level-7" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#bandit-level-7" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bandit7@bandit:~$ ls
+</span></span><span class="line"><span class="cl">data.txt
+</span></span><span class="line"><span class="cl">bandit7@bandit:~$ file data.txt 
+</span></span><span class="line"><span class="cl">data.txt: Unicode text, UTF-8 text
+</span></span><span class="line"><span class="cl">bandit7@bandit:~$ cat data.txt <span class="p">|</span> grep <span class="s2">&#34;millionth&#34;</span>
+</span></span><span class="line"><span class="cl">millionth	dfwvzFQi4mU0wfNbFOe9RoWskMLg7eEc
+</span></span><span class="line"><span class="cl">bandit7@bandit:~$ 
+</span></span></code></pre></div><p>Used the <code>file</code> command to check the type of <code>data.txt</code>, which revealed it was a Unicode text file. Then, used <code>grep</code> to search for the string &ldquo;millionth&rdquo; in the file, which returned the password.
+Password: <code>dfwvzFQi4mU0wfNbFOe9RoWskMLg7eEc</code></p>
+
+
+<h2 class="relative group">Bandit Level 8 
+    <div id="bandit-level-8" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#bandit-level-8" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bandit8@bandit:~$ file data.txt 
+</span></span><span class="line"><span class="cl">data.txt: ASCII text
+</span></span><span class="line"><span class="cl">bandit8@bandit:~$ cat data.txt <span class="p">|</span> sort <span class="p">|</span>less
+</span></span><span class="line"><span class="cl">bandit8@bandit:~$ cat data.txt <span class="p">|</span> sort <span class="p">|</span> uniq -u
+</span></span><span class="line"><span class="cl">4CKMh1JI91bUIZZPXDqGanal4xvAg0JM
+</span></span></code></pre></div><p>Used the <code>file</code> command to check the type of <code>data.txt</code>, which revealed it was an ASCII text file. Then, used <code>sort</code> to order the lines, and <code>uniq -u</code> to print only the unique line (the password). The <code>-u</code> option ensures only lines that appear exactly once are shown, filtering out any duplicates.
+Password: <code>4CKMh1JI91bUIZZPXDqGanal4xvAg0JM</code></p>
+
+
+<h2 class="relative group">Bandit Level 9 
+    <div id="bandit-level-9" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#bandit-level-9" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bandit9@bandit:~$ file data.txt 
+</span></span><span class="line"><span class="cl">data.txt: data
+</span></span><span class="line"><span class="cl">bandit9@bandit:~$ cat data.txt <span class="p">|</span> grep <span class="s2">&#34;====&#34;</span>
+</span></span><span class="line"><span class="cl">grep: <span class="o">(</span>standard input<span class="o">)</span>: binary file matches
+</span></span><span class="line"><span class="cl">bandit9@bandit:~$ strings data.txt <span class="p">|</span> grep <span class="s2">&#34;==&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">==========</span> <span class="nv">the</span>
+</span></span><span class="line"><span class="cl"><span class="o">==========</span> password<span class="o">{</span><span class="nv">k</span>
+</span></span><span class="line"><span class="cl"><span class="o">===========</span> <span class="nv">is</span>
+</span></span><span class="line"><span class="cl"><span class="o">==========</span> FGUW5ilLVJrxX9kMYMmlN4MgbpfMiqey
+</span></span></code></pre></div><p>Used the <code>file</code> command to check the type of <code>data.txt</code>, which revealed it was a binary file. Then, used <code>strings</code> to extract printable strings from the binary file and <code>grep</code> to search for lines containing &ldquo;==&rdquo;. This returned the password.
+Password: <code>FGUW5ilLVJrxX9kMYMmlN4MgbpfMiqey</code></p>
+
+
+<h2 class="relative group">Bandit Level 10 
+    <div id="bandit-level-10" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#bandit-level-10" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bandit10@bandit:~$ cat data.txt 
+</span></span><span class="line"><span class="cl"><span class="nv">VGhlIHBhc3N3b3JkIGlzIGR0UjE3M2ZaS2IwUlJzREZTR3NnMlJXbnBOVmozcVJyCg</span><span class="o">==</span>
+</span></span><span class="line"><span class="cl">bandit10@bandit:~$ cat data.txt <span class="p">|</span> base64 --decode
+</span></span><span class="line"><span class="cl">The password is dtR173fZKb0RRsDFSGsg2RWnpNVj3qRr
+</span></span></code></pre></div><p>Used <code>base64 --decode</code> to decode the base64 encoded string in <code>data.txt</code>, which revealed the password.
+Password: <code>dtR173fZKb0RRsDFSGsg2RWnpNVj3qRr</code></p>
+
+
+<h2 class="relative group">Bandit Level 11 
+    <div id="bandit-level-11" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#bandit-level-11" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bandit11@bandit:~$ cat data.txt 
+</span></span><span class="line"><span class="cl">Gur cnffjbeq vf 7k16JArUVv5LxVuJfsSVdbbtaHGlw9D4
+</span></span></code></pre></div><p>Used an online ROT13 decoder to decode the string in <code>data.txt</code>, which revealed the password.
+Password: <code>7x16WNeHIi5YkIhWsfFIqoognUTyj9Q4</code></p>
+
+
+<h2 class="relative group">Bandit Level 12 
+    <div id="bandit-level-12" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#bandit-level-12" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bandit12@bandit:~$ mkdir /tmp/d3let3
+</span></span><span class="line"><span class="cl">bandit12@bandit:~$ cp data.txt /tmp/d3let3
+</span></span><span class="line"><span class="cl">bandit12@bandit:~$ <span class="nb">cd</span> /tmp/d3let3
+</span></span><span class="line"><span class="cl">bandit12@bandit:/tmp/d3let3$ ls
+</span></span><span class="line"><span class="cl">data.txt
+</span></span><span class="line"><span class="cl">bandit12@bandit:/tmp/d3let3$ xxd -r data.txt data
+</span></span><span class="line"><span class="cl">bandit12@bandit:/tmp/d3let3$ gzip -d data
+</span></span><span class="line"><span class="cl">gzip: data: unknown suffix -- ignored
+</span></span><span class="line"><span class="cl">bandit12@bandit:/tmp/d3let3$ mv data txt.gz
+</span></span><span class="line"><span class="cl">bandit12@bandit:/tmp/d3let3$ gzip -d txt.gz 
+</span></span><span class="line"><span class="cl">bandit12@bandit:/tmp/d3let3$ cat txt 
+</span></span><span class="line"><span class="cl">bandit12@bandit:/tmp/d3let3$ file txt
+</span></span><span class="line"><span class="cl">txt: bzip2 compressed data, block <span class="nv">size</span> <span class="o">=</span> 900k
+</span></span><span class="line"><span class="cl">bandit12@bandit:/tmp/d3let3$ mv txt txxt.bz2
+</span></span><span class="line"><span class="cl">bandit12@bandit:/tmp/d3let3$ bzip2 -d txxt.bz2 
+</span></span><span class="line"><span class="cl">bandit12@bandit:/tmp/d3let3$ file txxt 
+</span></span><span class="line"><span class="cl">txxt: gzip compressed data, was <span class="s2">&#34;data4.bin&#34;</span>, last modified: Thu Apr <span class="m">10</span> 14:22:57 2025, max compression, from Unix, original size modulo 2^32 <span class="m">20480</span>
+</span></span><span class="line"><span class="cl">bandit12@bandit:/tmp/d3let3$ mv txxt d4ta.gz
+</span></span><span class="line"><span class="cl">bandit12@bandit:/tmp/d3let3$ gzip -d d4ta.gz 
+</span></span><span class="line"><span class="cl">bandit12@bandit:/tmp/d3let3$ file d4ta 
+</span></span><span class="line"><span class="cl">d4ta: POSIX tar archive <span class="o">(</span>GNU<span class="o">)</span>
+</span></span><span class="line"><span class="cl">bandit12@bandit:/tmp/d3let3$ tar -xvf d4ta
+</span></span><span class="line"><span class="cl">data5.bin
+</span></span><span class="line"><span class="cl">bandit12@bandit:/tmp/d3let3$ file data5.bin 
+</span></span><span class="line"><span class="cl">data5.bin: POSIX tar archive <span class="o">(</span>GNU<span class="o">)</span>
+</span></span><span class="line"><span class="cl">bandit12@bandit:/tmp/d3let3$ tar -xvf data5.bin
+</span></span><span class="line"><span class="cl">data6.bin
+</span></span><span class="line"><span class="cl">bandit12@bandit:/tmp/d3let3$ file data6.bin 
+</span></span><span class="line"><span class="cl">data6.bin: bzip2 compressed data, block <span class="nv">size</span> <span class="o">=</span> 900k
+</span></span><span class="line"><span class="cl">bandit12@bandit:/tmp/d3let3$ mv data6.bin data6.bz
+</span></span><span class="line"><span class="cl">bandit12@bandit:/tmp/d3let3$ bzip -d data6.bz 
+</span></span><span class="line"><span class="cl">Command <span class="s1">&#39;bzip&#39;</span> not found, but there are <span class="m">21</span> similar ones.
+</span></span><span class="line"><span class="cl">bandit12@bandit:/tmp/d3let3$ bzip2 -d data6.bz 
+</span></span><span class="line"><span class="cl">bandit12@bandit:/tmp/d3let3$ file data6 
+</span></span><span class="line"><span class="cl">data6: POSIX tar archive <span class="o">(</span>GNU<span class="o">)</span>
+</span></span><span class="line"><span class="cl">bandit12@bandit:/tmp/d3let3$ tar -xvf data6
+</span></span><span class="line"><span class="cl">data8.bin
+</span></span><span class="line"><span class="cl">bandit12@bandit:/tmp/d3let3$ file data8.bin 
+</span></span><span class="line"><span class="cl">data8.bin: gzip compressed data, was <span class="s2">&#34;data9.bin&#34;</span>, last modified: Thu Apr <span class="m">10</span> 14:22:57 2025, max compression, from Unix, original size modulo 2^32 <span class="m">49</span>
+</span></span><span class="line"><span class="cl">bandit12@bandit:/tmp/d3let3$ mv data8.bin data8.gz
+</span></span><span class="line"><span class="cl">bandit12@bandit:/tmp/d3let3$ gzip -d data8.gz 
+</span></span><span class="line"><span class="cl">bandit12@bandit:/tmp/d3let3$ file data8
+</span></span><span class="line"><span class="cl">data8: ASCII text
+</span></span><span class="line"><span class="cl">bandit12@bandit:/tmp/d3let3$ cat data8
+</span></span><span class="line"><span class="cl">The password is FO5dwFsc0cbaIiH0h8J2eUks2vdTDwAn
+</span></span></code></pre></div><p>Used a series of commands to decode and extract the password from the file <code>data.txt</code>. The process involved creating a temporary directory, copying the file, using <code>xxd</code> to reverse the hex dump, decompressing with <code>gzip</code>, renaming files, and finally extracting the password from the last file.
+Password: <code>FO5dwFsc0cbaIiH0h8J2eUks2vdTDwAn</code></p>
+
+
+<h2 class="relative group">Bandit Level 13 
+    <div id="bandit-level-13" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#bandit-level-13" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bandit13@bandit:~$ ssh -i sshkey.private -p <span class="m">2220</span> bandit14@localhost
+</span></span><span class="line"><span class="cl">bandit14@bandit:~$ cat /etc/bandit_pass/bandit14
+</span></span><span class="line"><span class="cl">MU4VWeTyJk8ROof1qqmcBPaLh7lDCPvS
+</span></span></code></pre></div><p>Used the private SSH key <code>sshkey.private</code> to connect to Bandit Level 14. The password for Bandit Level 14 is found in the file <code>/etc/bandit_pass/bandit14</code>.
+Password: <code>MU4VWeTyJk8ROof1qqmcBPaLh7lDCPvS</code></p>
+
+
+<h2 class="relative group">Bandit Level 14 
+    <div id="bandit-level-14" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#bandit-level-14" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bandit14@bandit:~$ nc localhost <span class="m">30000</span>
+</span></span><span class="line"><span class="cl">MU4VWeTyJk8ROof1qqmcBPaLh7lDCPvS
+</span></span><span class="line"><span class="cl">Correct!
+</span></span><span class="line"><span class="cl">8xCjnmgoKbGLhHFAZlGE5Tmu4M2tKJQo
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">^C
+</span></span><span class="line"><span class="cl">bandit14@bandit:~$ 
+</span></span></code></pre></div><p>Used <code>nc</code> (netcat) to connect to localhost on port 30000. The server prompts for the password, which is the same as the previous level&rsquo;s password. After entering the correct password, it returns the new password.
+Password: <code>8xCjnmgoKbGLhHFAZlGE5Tmu4M2tKJQo</code></p>
+
+
+<h2 class="relative group">Bandit Level 15 
+    <div id="bandit-level-15" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#bandit-level-15" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bandit15@bandit:~$ openssl s_client -connect localhost:30001
+</span></span><span class="line"><span class="cl">CONNECTED<span class="o">(</span>00000003<span class="o">)</span>
+</span></span><span class="line"><span class="cl">Can<span class="s1">&#39;t use SSL_get_servername
+</span></span></span><span class="line"><span class="cl"><span class="s1">depth=0 CN = SnakeOil
+</span></span></span><span class="line"><span class="cl"><span class="s1">verify error:num=18:self-signed certificate
+</span></span></span><span class="line"><span class="cl"><span class="s1">verify return:1
+</span></span></span><span class="line"><span class="cl"><span class="s1">depth=0 CN = SnakeOil
+</span></span></span><span class="line"><span class="cl"><span class="s1">verify return:1
+</span></span></span><span class="line"><span class="cl"><span class="s1">---
+</span></span></span><span class="line"><span class="cl"><span class="s1">Certificate chain
+</span></span></span><span class="line"><span class="cl"><span class="s1"> 0 s:CN = SnakeOil
+</span></span></span><span class="line"><span class="cl"><span class="s1">   i:CN = SnakeOil
+</span></span></span><span class="line"><span class="cl"><span class="s1">   a:PKEY: rsaEncryption, 4096 (bit); sigalg: RSA-SHA256
+</span></span></span><span class="line"><span class="cl"><span class="s1">   v:NotBefore: Jun 10 03:59:50 2024 GMT; NotAfter: Jun  8 03:59:50 2034 GMT
+</span></span></span><span class="line"><span class="cl"><span class="s1">---
+</span></span></span><span class="line"><span class="cl"><span class="s1">Server certificate
+</span></span></span><span class="line"><span class="cl"><span class="s1">-----BEGIN CERTIFICATE-----
+</span></span></span><span class="line"><span class="cl"><span class="s1">MIIFBzCCAu+gAwIBAgIUBLz7DBxA0IfojaL/WaJzE6Sbz7cwDQYJKoZIhvcNAQEL
+</span></span></span><span class="line"><span class="cl"><span class="s1">BQAwEzERMA8GA1UEAwwIU25ha2VPaWwwHhcNMjQwNjEwMDM1OTUwWhcNMzQwNjA4
+</span></span></span><span class="line"><span class="cl"><span class="s1">MDM1OTUwWjATMREwDwYDVQQDDAhTbmFrZU9pbDCCAiIwDQYJKoZIhvcNAQEBBQAD
+</span></span></span><span class="line"><span class="cl"><span class="s1">ggIPADCCAgoCggIBANI+P5QXm9Bj21FIPsQqbqZRb5XmSZZJYaam7EIJ16Fxedf+
+</span></span></span><span class="line"><span class="cl"><span class="s1">jXAv4d/FVqiEM4BuSNsNMeBMx2Gq0lAfN33h+RMTjRoMb8yBsZsC063MLfXCk4p+
+</span></span></span><span class="line"><span class="cl"><span class="s1">09gtGP7BS6Iy5XdmfY/fPHvA3JDEScdlDDmd6Lsbdwhv93Q8M6POVO9sv4HuS4t/
+</span></span></span><span class="line"><span class="cl"><span class="s1">jEjr+NhE+Bjr/wDbyg7GL71BP1WPZpQnRE4OzoSrt5+bZVLvODWUFwinB0fLaGRk
+</span></span></span><span class="line"><span class="cl"><span class="s1">GmI0r5EUOUd7HpYyoIQbiNlePGfPpHRKnmdXTTEZEoxeWWAaM1VhPGqfrB/Pnca+
+</span></span></span><span class="line"><span class="cl"><span class="s1">vAJX7iBOb3kHinmfVOScsG/YAUR94wSELeY+UlEWJaELVUntrJ5HeRDiTChiVQ++
+</span></span></span><span class="line"><span class="cl"><span class="s1">wnnjNbepaW6shopybUF3XXfhIb4NvwLWpvoKFXVtcVjlOujF0snVvpE+MRT0wacy
+</span></span></span><span class="line"><span class="cl"><span class="s1">tHtjZs7Ao7GYxDz6H8AdBLKJW67uQon37a4MI260ADFMS+2vEAbNSFP+f6ii5mrB
+</span></span></span><span class="line"><span class="cl"><span class="s1">18cY64ZaF6oU8bjGK7BArDx56bRc3WFyuBIGWAFHEuB948BcshXY7baf5jjzPmgz
+</span></span></span><span class="line"><span class="cl"><span class="s1">mq1zdRthQB31MOM2ii6vuTkheAvKfFf+llH4M9SnES4NSF2hj9NnHga9V08wfhYc
+</span></span></span><span class="line"><span class="cl"><span class="s1">x0W6qu+S8HUdVF+V23yTvUNgz4Q+UoGs4sHSDEsIBFqNvInnpUmtNgcR2L5PAgMB
+</span></span></span><span class="line"><span class="cl"><span class="s1">AAGjUzBRMB0GA1UdDgQWBBTPo8kfze4P9EgxNuyk7+xDGFtAYzAfBgNVHSMEGDAW
+</span></span></span><span class="line"><span class="cl"><span class="s1">gBTPo8kfze4P9EgxNuyk7+xDGFtAYzAPBgNVHRMBAf8EBTADAQH/MA0GCSqGSIb3
+</span></span></span><span class="line"><span class="cl"><span class="s1">DQEBCwUAA4ICAQAKHomtmcGqyiLnhziLe97Mq2+Sul5QgYVwfx/KYOXxv2T8ZmcR
+</span></span></span><span class="line"><span class="cl"><span class="s1">Ae9XFhZT4jsAOUDK1OXx9aZgDGJHJLNEVTe9zWv1ONFfNxEBxQgP7hhmDBWdtj6d
+</span></span></span><span class="line"><span class="cl"><span class="s1">taqEW/Jp06X+08BtnYK9NZsvDg2YRcvOHConeMjwvEL7tQK0m+GVyQfLYg6jnrhx
+</span></span></span><span class="line"><span class="cl"><span class="s1">egH+abucTKxabFcWSE+Vk0uJYMqcbXvB4WNKz9vj4V5Hn7/DN4xIjFko+nREw6Oa
+</span></span></span><span class="line"><span class="cl"><span class="s1">/AUFjNnO/FPjap+d68H1LdzMH3PSs+yjGid+6Zx9FCnt9qZydW13Miqg3nDnODXw
+</span></span></span><span class="line"><span class="cl"><span class="s1">+Z682mQFjVlGPCA5ZOQbyMKY4tNazG2n8qy2famQT3+jF8Lb6a4NGbnpeWnLMkIu
+</span></span></span><span class="line"><span class="cl"><span class="s1">jWLWIkA9MlbdNXuajiPNVyYIK9gdoBzbfaKwoOfSsLxEqlf8rio1GGcEV5Hlz5S2
+</span></span></span><span class="line"><span class="cl"><span class="s1">txwI0xdW9MWeGWoiLbZSbRJH4TIBFFtoBG0LoEJi0C+UPwS8CDngJB4TyrZqEld3
+</span></span></span><span class="line"><span class="cl"><span class="s1">rH87W+Et1t/Nepoc/Eoaux9PFp5VPXP+qwQGmhir/hv7OsgBhrkYuhkjxZ8+1uk7
+</span></span></span><span class="line"><span class="cl"><span class="s1">tUWC/XM0mpLoxsq6vVl3AJaJe1ivdA9xLytsuG4iv02Juc593HXYR8yOpow0Eq2T
+</span></span></span><span class="line"><span class="cl"><span class="s1">U5EyeuFg5RXYwAPi7ykw1PW7zAPL4MlonEVz+QXOSx6eyhimp1VZC11SCg==
+</span></span></span><span class="line"><span class="cl"><span class="s1">-----END CERTIFICATE-----
+</span></span></span><span class="line"><span class="cl"><span class="s1">subject=CN = SnakeOil
+</span></span></span><span class="line"><span class="cl"><span class="s1">issuer=CN = SnakeOil
+</span></span></span><span class="line"><span class="cl"><span class="s1">---
+</span></span></span><span class="line"><span class="cl"><span class="s1">No client certificate CA names sent
+</span></span></span><span class="line"><span class="cl"><span class="s1">Peer signing digest: SHA256
+</span></span></span><span class="line"><span class="cl"><span class="s1">Peer signature type: RSA-PSS
+</span></span></span><span class="line"><span class="cl"><span class="s1">Server Temp Key: X25519, 253 bits
+</span></span></span><span class="line"><span class="cl"><span class="s1">---
+</span></span></span><span class="line"><span class="cl"><span class="s1">SSL handshake has read 2103 bytes and written 373 bytes
+</span></span></span><span class="line"><span class="cl"><span class="s1">Verification error: self-signed certificate
+</span></span></span><span class="line"><span class="cl"><span class="s1">---
+</span></span></span><span class="line"><span class="cl"><span class="s1">New, TLSv1.3, Cipher is TLS_AES_256_GCM_SHA384
+</span></span></span><span class="line"><span class="cl"><span class="s1">Server public key is 4096 bit
+</span></span></span><span class="line"><span class="cl"><span class="s1">Secure Renegotiation IS NOT supported
+</span></span></span><span class="line"><span class="cl"><span class="s1">Compression: NONE
+</span></span></span><span class="line"><span class="cl"><span class="s1">Expansion: NONE
+</span></span></span><span class="line"><span class="cl"><span class="s1">No ALPN negotiated
+</span></span></span><span class="line"><span class="cl"><span class="s1">Early data was not sent
+</span></span></span><span class="line"><span class="cl"><span class="s1">Verify return code: 18 (self-signed certificate)
+</span></span></span><span class="line"><span class="cl"><span class="s1">---
+</span></span></span><span class="line"><span class="cl"><span class="s1">---
+</span></span></span><span class="line"><span class="cl"><span class="s1">Post-Handshake New Session Ticket arrived:
+</span></span></span><span class="line"><span class="cl"><span class="s1">SSL-Session:
+</span></span></span><span class="line"><span class="cl"><span class="s1">    Protocol  : TLSv1.3
+</span></span></span><span class="line"><span class="cl"><span class="s1">    Cipher    : TLS_AES_256_GCM_SHA384
+</span></span></span><span class="line"><span class="cl"><span class="s1">    Session-ID: 68C81752B64BEF2EDBEEE104C3E43CE1A85B8CED5573A2621DF10DD4BB4E026A
+</span></span></span><span class="line"><span class="cl"><span class="s1">    Session-ID-ctx: 
+</span></span></span><span class="line"><span class="cl"><span class="s1">    Resumption PSK: D5EE94BABC7C01AF9FAAD92CD58927794DCB1661BD92F968F4AC11C87751F3B5DCECA5598C3828167F69241A98F23452
+</span></span></span><span class="line"><span class="cl"><span class="s1">    PSK identity: None
+</span></span></span><span class="line"><span class="cl"><span class="s1">    PSK identity hint: None
+</span></span></span><span class="line"><span class="cl"><span class="s1">    SRP username: None
+</span></span></span><span class="line"><span class="cl"><span class="s1">    TLS session ticket lifetime hint: 300 (seconds)
+</span></span></span><span class="line"><span class="cl"><span class="s1">    TLS session ticket:
+</span></span></span><span class="line"><span class="cl"><span class="s1">    0000 - 90 26 4b 61 3e 89 95 1a-4b 9c 04 1b 5a 25 70 8d   .&amp;Ka&gt;...K...Z%p.
+</span></span></span><span class="line"><span class="cl"><span class="s1">    0010 - 9b e7 47 fc b3 e2 2a fd-e2 be 05 14 24 01 28 0d   ..G...*.....$.(.
+</span></span></span><span class="line"><span class="cl"><span class="s1">    0020 - e0 c4 33 a6 fc 30 ce d7-f1 b1 36 37 00 90 a8 26   ..3..0....67...&amp;
+</span></span></span><span class="line"><span class="cl"><span class="s1">    0030 - a0 8e 8a eb 20 9c 19 fb-ba 08 85 c4 b9 cc 0c e0   .... ...........
+</span></span></span><span class="line"><span class="cl"><span class="s1">    0040 - cc a9 7b f1 1c 73 65 35-dc 97 66 20 9e d3 76 20   ..{..se5..f ..v 
+</span></span></span><span class="line"><span class="cl"><span class="s1">    0050 - f0 29 04 21 6e c3 26 b6-10 db 1d be 9d 1d 8f b4   .).!n.&amp;.........
+</span></span></span><span class="line"><span class="cl"><span class="s1">    0060 - bd cd 71 03 f9 d8 4a ae-9f ff f2 66 d7 e3 26 a2   ..q...J....f..&amp;.
+</span></span></span><span class="line"><span class="cl"><span class="s1">    0070 - 81 8a 59 ec d4 1f 2c d7-43 63 58 cf 51 fc fe 5b   ..Y...,.CcX.Q..[
+</span></span></span><span class="line"><span class="cl"><span class="s1">    0080 - 0e 7d 67 42 52 01 36 20-cc 18 4c 72 cc 94 91 1f   .}gBR.6 ..Lr....
+</span></span></span><span class="line"><span class="cl"><span class="s1">    0090 - 61 d8 3b 49 6a 93 ef 43-19 61 af 74 7a 09 51 8c   a.;Ij..C.a.tz.Q.
+</span></span></span><span class="line"><span class="cl"><span class="s1">    00a0 - 0b ea 02 b5 28 08 f1 a9-57 5a 0c 7a 96 1d a8 19   ....(...WZ.z....
+</span></span></span><span class="line"><span class="cl"><span class="s1">    00b0 - f3 ab fc ef 25 e9 f1 99-f4 7f e4 a9 46 84 4b 76   ....%.......F.Kv
+</span></span></span><span class="line"><span class="cl"><span class="s1">    00c0 - 3f 02 27 6e e4 a2 05 23-0f 00 ab d2 a3 46 54 b8   ?.&#39;</span>n...#.....FT.
+</span></span><span class="line"><span class="cl">    00d0 - fe 8a 5d <span class="m">43</span> 6e 4b a4 35-8b bd 3d 1d 0a <span class="m">52</span> <span class="m">18</span> 9b   ..<span class="o">]</span>CnK.5..<span class="o">=</span>..R..
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    Start Time: <span class="m">1748921757</span>
+</span></span><span class="line"><span class="cl">    Timeout   : <span class="m">7200</span> <span class="o">(</span>sec<span class="o">)</span>
+</span></span><span class="line"><span class="cl">    Verify <span class="k">return</span> code: <span class="m">18</span> <span class="o">(</span>self-signed certificate<span class="o">)</span>
+</span></span><span class="line"><span class="cl">    Extended master secret: no
+</span></span><span class="line"><span class="cl">    Max Early Data: <span class="m">0</span>
+</span></span><span class="line"><span class="cl">---
+</span></span><span class="line"><span class="cl"><span class="nb">read</span> R BLOCK
+</span></span><span class="line"><span class="cl">---
+</span></span><span class="line"><span class="cl">Post-Handshake New Session Ticket arrived:
+</span></span><span class="line"><span class="cl">SSL-Session:
+</span></span><span class="line"><span class="cl">    Protocol  : TLSv1.3
+</span></span><span class="line"><span class="cl">    Cipher    : TLS_AES_256_GCM_SHA384
+</span></span><span class="line"><span class="cl">    Session-ID: 406F9FED595D10EB429D57EB4CC0965D24E5355FBF5859C38E29C2BCEE4B5FF7
+</span></span><span class="line"><span class="cl">    Session-ID-ctx: 
+</span></span><span class="line"><span class="cl">    Resumption PSK: E5E19083A209E4154DEED6BC5E7C82F9548222E8ADDB491A5C273FA65CE7E70A7B3EAC6D4F2AF8594B4476BB423C096F
+</span></span><span class="line"><span class="cl">    PSK identity: None
+</span></span><span class="line"><span class="cl">    PSK identity hint: None
+</span></span><span class="line"><span class="cl">    SRP username: None
+</span></span><span class="line"><span class="cl">    TLS session ticket lifetime hint: <span class="m">300</span> <span class="o">(</span>seconds<span class="o">)</span>
+</span></span><span class="line"><span class="cl">    TLS session ticket:
+</span></span><span class="line"><span class="cl">    <span class="m">0000</span> - <span class="m">90</span> <span class="m">26</span> 4b <span class="m">61</span> 3e <span class="m">89</span> <span class="m">95</span> 1a-4b 9c <span class="m">04</span> 1b 5a <span class="m">25</span> <span class="m">70</span> 8d   .<span class="p">&amp;</span>Ka&gt;...K...Z%p.
+</span></span><span class="line"><span class="cl">    <span class="m">0010</span> - <span class="m">78</span> <span class="m">23</span> 7e <span class="m">72</span> <span class="m">59</span> <span class="m">10</span> 2d 55-07 <span class="m">81</span> d7 <span class="m">85</span> <span class="m">45</span> f5 9a c5   x#~rY.-U....E...
+</span></span><span class="line"><span class="cl">    <span class="m">0020</span> - ed <span class="nb">fc</span> e2 8c 1f <span class="m">65</span> ce 69-c0 <span class="m">05</span> <span class="m">86</span> <span class="m">49</span> <span class="m">16</span> ac <span class="m">16</span> <span class="m">64</span>   .....e.i...I...d
+</span></span><span class="line"><span class="cl">    <span class="m">0030</span> - a3 bb <span class="m">85</span> <span class="m">18</span> d3 <span class="m">03</span> e0 bc-32 <span class="m">39</span> 7b <span class="m">24</span> ec bd f4 <span class="m">47</span>   ........29<span class="o">{</span>$...G
+</span></span><span class="line"><span class="cl">    <span class="m">0040</span> - <span class="m">58</span> 9d e5 e9 <span class="m">83</span> <span class="m">89</span> <span class="m">84</span> fe-ab <span class="m">22</span> d1 bb 3c <span class="m">98</span> e2 <span class="m">03</span>   X........<span class="s2">&#34;..&lt;...
+</span></span></span><span class="line"><span class="cl"><span class="s2">    0050 - d9 fc 2d 6c 1b 44 1c ed-c8 1f 3f 26 be 50 10 88   ..-l.D....?&amp;.P..
+</span></span></span><span class="line"><span class="cl"><span class="s2">    0060 - cd f0 57 3e ae 14 f0 36-10 17 6b b6 01 69 46 11   ..W&gt;...6..k..iF.
+</span></span></span><span class="line"><span class="cl"><span class="s2">    0070 - 9e e2 07 3a c9 a0 0e 26-29 c3 2c 65 b8 3e 81 90   ...:...&amp;).,e.&gt;..
+</span></span></span><span class="line"><span class="cl"><span class="s2">    0080 - a4 18 59 65 8c c7 33 05-50 5e 09 8f 2a 12 90 c1   ..Ye..3.P^..*...
+</span></span></span><span class="line"><span class="cl"><span class="s2">    0090 - 14 c8 39 9c ed 5f 73 dc-11 9e 7a d8 73 68 31 63   ..9.._s...z.sh1c
+</span></span></span><span class="line"><span class="cl"><span class="s2">    00a0 - 90 68 53 b5 61 f4 bb f3-24 0d f1 4a c8 1e f8 e8   .hS.a...</span>$<span class="s2">..J....
+</span></span></span><span class="line"><span class="cl"><span class="s2">    00b0 - ff 98 93 b4 ab d2 66 9a-67 b0 a5 5f 77 f5 46 44   ......f.g.._w.FD
+</span></span></span><span class="line"><span class="cl"><span class="s2">    00c0 - d9 c1 41 15 8c 9d 1d 62-a2 5f da 1e db ed ee 31   ..A....b._.....1
+</span></span></span><span class="line"><span class="cl"><span class="s2">    00d0 - cd 94 c8 b5 fd d7 12 16-20 d1 f5 84 bb 4f d2 f7   ........ ....O..
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">    Start Time: 1748921757
+</span></span></span><span class="line"><span class="cl"><span class="s2">    Timeout   : 7200 (sec)
+</span></span></span><span class="line"><span class="cl"><span class="s2">    Verify return code: 18 (self-signed certificate)
+</span></span></span><span class="line"><span class="cl"><span class="s2">    Extended master secret: no
+</span></span></span><span class="line"><span class="cl"><span class="s2">    Max Early Data: 0
+</span></span></span><span class="line"><span class="cl"><span class="s2">---
+</span></span></span><span class="line"><span class="cl"><span class="s2">read R BLOCK
+</span></span></span><span class="line"><span class="cl"><span class="s2">8xCjnmgoKbGLhHFAZlGE5Tmu4M2tKJQo
+</span></span></span><span class="line"><span class="cl"><span class="s2">Correct!
+</span></span></span><span class="line"><span class="cl"><span class="s2">kSkvUpMQ7lBYyCM4GBPvCvT1BfWRy0Dx
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">closed
+</span></span></span><span class="line"><span class="cl"><span class="s2">bandit15@bandit:~</span>$<span class="s2"> 
+</span></span></span></code></pre></div><p>Used <code>openssl s_client</code> to connect to localhost on port 30001. The server presents a self-signed certificate, which is accepted despite the verification error. After entering the correct password, it returns the new password.
+Password: <code>kSkvUpMQ7lBYyCM4GBPvCvT1BfWRy0Dx</code></p>
+
+          
+          
+          
+        </div>
+        
+        
+
+        
+        
+
+        
+
+
+<h2 class="mt-8 text-2xl font-extrabold mb-10">Related</h2>
+<section class="w-full grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+  
+  
+
+  <a href="/posts/git_immersion/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/posts/git_immersion/featured_hu6a24a3110c6bcac41ad2025420107fd4_29573_600x0_resize_box_3.png);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/posts/git_immersion/">Git Immersion: A Deep Dive into Version Control</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2025-06-03T00:00:00&#43;00:00">2025-06-03</time><span class="px-2 text-primary-500">&middot;</span><span>4973 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">24 mins</span>
+  
+
+  
+  
+</div>
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/categories/version-control/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Version Control
+  </span>
+</span>
+  </span>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/git/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Git
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/version-control/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Version Control
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/development/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Development
+  </span>
+</span>
+  </span>
+  
+  
+  
+  
+</div>
+
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+  
+
+  <a href="/posts/first_post/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/posts/first_post/featured_hua19419bde5106c5d12c2e93fd1a5617b_52610_600x0_resize_q75_box.jpeg);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/posts/first_post/">My first post</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2025-05-25T00:00:00&#43;00:00">2025-05-25</time><span class="px-2 text-primary-500">&middot;</span><span>78 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">1 min</span>
+  
+
+  
+  
+</div>
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/categories/introduction/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Introduction
+  </span>
+</span>
+  </span>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/personal/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Personal
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/blogging/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Blogging
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/first-post/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    First Post
+  </span>
+</span>
+  </span>
+  
+  
+  
+  
+</div>
+
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+</section>
+
+  
+      </div>
+     
+      
+      
+        
+        
+          
+          
+        
+      <script>
+        var oid = "views_posts\/OTW\/index.md"
+        var oid_likes = "likes_posts\/OTW\/index.md"
+      </script>
+      
+      
+      <script type="text/javascript" src="/js/page.min.b06a29d42a4ed16787978e2eee1e8c797b7698db2bc14ccee78f5c80ac566fc996190a73ad80a5e987558474b20b96fa38f7d85b405f165ff72b7b163c5ad11b.js" integrity="sha512-sGop1CpO0WeHl44u7h6MeXt2mNsrwUzO549cgKxWb8mWGQpzrYCl6YdVhHSyC5b6OPfYW0BfFl/3K3sWPFrRGw=="></script>
+      
+  
+    </section>
+  <footer class="pt-8 max-w-prose print:hidden">
+
+    
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="flex group mr-3" href="/posts/first_post/">
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >My first post</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2025-05-25T00:00:00&#43;00:00">2025-05-25</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="flex text-right group ml-3" href="/posts/git_immersion/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >Git Immersion: A Deep Dive into Version Control</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2025-06-03T00:00:00&#43;00:00">2025-06-03</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+            </a>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+    
+  </footer>
+</article>
+
+      <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0">
+  <a href="#the-top"
+    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="Scroll to top" title="Scroll to top">
+    &uarr;
+  </a>
+</div>
+    </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+    <nav class="flex flex-row pb-4 text-base font-medium text-neutral-500 dark:text-neutral-400">
+      <ul class="flex flex-col list-none sm:flex-row">
+        
+        <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/posts/"
+            title="">
+            
+            Blog
+          </a>
+        </li>
+        
+        <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/categories/"
+            title="">
+            
+            Categories
+          </a>
+        </li>
+        
+        <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/tags/"
+            title="">
+            
+            Tags
+          </a>
+        </li>
+        
+      </ul>
+    </nav>
+    
+  
+  <div class="flex items-center justify-between">
+
+    
+    
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      D3LET3 was here!
+    </p>
+    
+
+    
+    
+
+  </div>
+  <script>
+    
+    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+      margin: 24,
+      background: 'rgba(0,0,0,0.5)',
+      scrollOffset: 0,
+    })
+    
+  </script>
+  
+  
+  <script type="text/javascript" src="/js/process.min.62060bb247f4de2b6dde45903668fefb68d792f365587605177b1227c0cf43588701edaca0cb40e2c8e2789bd5ce67c1d2a215b9fb258c3496a7cd25e7cb5fdf.js" integrity="sha512-YgYLskf03itt3kWQNmj&#43;&#43;2jXkvNlWHYFF3sSJ8DPQ1iHAe2soMtA4sjieJvVzmfB0qIVufsljDSWp80l58tf3w=="></script>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  data-url="//localhost:1313/"
+  style="z-index:500"
+>
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)"
+      >
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+  </div>
+</body>
+
+</html>
