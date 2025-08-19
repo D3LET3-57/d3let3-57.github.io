@@ -104,7 +104,7 @@
     "keywords": ["ctf","writeup","pwn","heap"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "2282"
+    "wordCount": "2351"
   }]
   </script>
 
@@ -577,7 +577,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2025-08-18T00:00:00&#43;00:00">2025-08-18</time><span class="px-2 text-primary-500">&middot;</span><span>2282 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">11 mins</span><span class="px-2 text-primary-500">&middot;</span>
+  <time datetime="2025-08-18T00:00:00&#43;00:00">2025-08-18</time><span class="px-2 text-primary-500">&middot;</span><span>2351 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">12 mins</span><span class="px-2 text-primary-500">&middot;</span>
 
 
 <script type="text/javascript" src="/js/zen-mode.min.eea5245cf9244ecbdf2c150d1c8833226c1541cadf6e98f63a7c9192b1a3676df2c3ec603b14f4cfaaa53971fd9d8955640c0f405bf3de2b43ee7a5fb29ae721.js" integrity="sha512-7qUkXPkkTsvfLBUNHIgzImwVQcrfbpj2OnyRkrGjZ23yw&#43;xgOxT0z6qlOXH9nYlVZAwPQFvz3itD7npfsprnIQ=="></script>
@@ -1039,7 +1039,10 @@
     </span>        
     
 </h2>
-<p>The challenge note explicitly states that the binary uses a glibc version without <code>tcache</code>. This means that freed chunks of appropriate sizes will be placed into the unsorted bin, which uses a doubly linked list to manage its free chunks. This structure is central to the classic &ldquo;unlink&rdquo; attack.</p>
+<p>The binary has a UAF vuln( Not removing the pointer after freeing it) but it has no use due to only being able to malloc 2 times.<br>
+Free chunk goes to unsorted bin and in this condition we can&rsquo;t corrupt the head of linked list due to an unusual memory saving property of unsorted bin which is to merge into topchunk.
+The exploit below uses the Heap overflow vuln.<br>
+The challenge note explicitly states that the binary uses a glibc version without <code>tcache</code>. This means that freed chunks of appropriate sizes will be placed into the unsorted bin, which uses a doubly linked list to manage its free chunks. This structure is central to the classic &ldquo;unlink&rdquo; attack.</p>
 
 
 <h3 class="relative group">What is Unlink? 

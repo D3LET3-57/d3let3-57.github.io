@@ -41,6 +41,9 @@ I used `pwninit` to patch the binary, setting `RUNPATH` to the current directory
 
 ## 0x01 - Vulnerability Analysis: Safe Unlink
 
+The binary has a UAF vuln( Not removing the pointer after freeing it) but it has no use due to only being able to malloc 2 times.<br>
+Free chunk goes to unsorted bin and in this condition we can't corrupt the head of linked list due to an unusual memory saving property of unsorted bin which is to merge into topchunk.
+The exploit below uses the Heap overflow vuln.<br>
 The challenge note explicitly states that the binary uses a glibc version without `tcache`. This means that freed chunks of appropriate sizes will be placed into the unsorted bin, which uses a doubly linked list to manage its free chunks. This structure is central to the classic "unlink" attack.
 
 ### What is Unlink?

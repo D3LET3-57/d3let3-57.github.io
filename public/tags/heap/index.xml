@@ -16,7 +16,7 @@
       
       <guid>//localhost:1313/posts/vault3/</guid>
       <description>A detailed writeup for the Vault3 challenge from ScriptCTF 2025, focusing on a Safe Unlink heap exploitation technique.</description>
-      
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="//localhost:1313/posts/vault3/featured.png" />
     </item>
     
   </channel>
