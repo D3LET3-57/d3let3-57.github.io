@@ -4,13 +4,19 @@
 
   <url>
     <loc>//localhost:1313/</loc>
-    <lastmod>2025-08-18T00:00:00+00:00</lastmod>
+    <lastmod>2025-09-29T00:00:00+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>//localhost:1313/posts/</loc>
-    <lastmod>2025-08-18T00:00:00+00:00</lastmod>
+    <lastmod>2025-09-29T00:00:00+00:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>//localhost:1313/posts/heapx/</loc>
+    <lastmod>2025-09-29T00:00:00+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>

