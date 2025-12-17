@@ -21,6 +21,11 @@
   weight = 20
 
 [[main]]
+  name = "About"
+  pageRef = "about"
+  weight = 25
+
+[[main]]
   pre = "github"
   url = "https://github.com/D3LET3-57"
   weight = 30

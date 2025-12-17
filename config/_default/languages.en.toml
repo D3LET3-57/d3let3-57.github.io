@@ -2,7 +2,7 @@ disabled = false
 languageCode = "en"
 languageName = "English"
 weight = 100
-title = "D3LET3-57"
+title = "d3let3"
 
 [params]
   displayName = "EN"
@@ -12,17 +12,17 @@ title = "D3LET3-57"
    logo = "img/evil_zoro.jpeg"
    secondaryLogo = "img/Levi.png"
    description = "D3LET3 | Lalith"
-   copyright = "D3LET3 was here!"
+   copyright = "2025 © D3LET3-57"
 
  [params.author]
  name = "D3LET3-57"
   
   image = "img/Levi.png"
    imageQuality = 96
-   headline = "OnePiece is Real!"
-   bio = "Don't doxx me, lol!"
+   headline = "A coder, gamer, and anime enthusiast."
+   bio = "Skill issue? Or just lazy?"
    links = [
-#     { email = "mailto:indphoenix7777@gmail.com" },
+     { email = "mailto:lalithsaichakilam3@gmail.com" },
 #     { link = "https://link-to-some-website.com/" },
 #     { amazon = "https://www.amazon.com/hz/wishlist/ls/wishlist-id" },
 #     { apple = "https://www.apple.com" },
